@@ -25,5 +25,5 @@ mongoose.connection.on('error', function (error) {
 mongoose.connection.on('open', function () {
   console.log('------数据库连接成功！------');
 });
-app.listen(3000);
-console.log('[demo] start-quick is starting at port 3000');
+app.listen(12306);
+console.log('[demo] start-quick is starting at port 12306');
