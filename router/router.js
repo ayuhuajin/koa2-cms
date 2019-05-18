@@ -1,4 +1,5 @@
 const router = require('koa-router')();
+const Control = require('../controller/control');
 
 module.exports = (app) =>{
   // log request URL:
@@ -9,6 +10,8 @@ module.exports = (app) =>{
   router.get('/index',async(ctx)=>{
     ctx.body='index';
   });
+  // ****************************  搜索  **********************************//
+  router.get('/search', Control.search);
   app.use(router.routes());   /*启动路由*/
   app.use(router.allowedMethods());
 };
