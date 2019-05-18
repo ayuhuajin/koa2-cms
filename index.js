@@ -18,7 +18,7 @@ app.use(bodyParser());  //bodypaser要在router之前加载才能生效。
 router(app);
 
 //链接hai_cms 数据库
-mongoose.connect('mongodb://127.0.0.1:27017/hai_cms');
+mongoose.connect('mongodb://127.0.0.1:27017/hai_cms',{ useNewUrlParser: true });
 mongoose.connection.on('error', function (error) {
   console.log('数据库连接失败：' + error);
 });
