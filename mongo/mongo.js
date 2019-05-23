@@ -4,7 +4,8 @@ let cmsSchema = new mongoose.Schema({
   name:String,
   age:Number
 });
-// 创建model 
+
+// 创建model
 let cmsModel = mongoose.model('test',cmsSchema,'test');
 
 // 将模型[构造函数]导出
