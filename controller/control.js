@@ -21,6 +21,7 @@ module.exports={
           }
       });
   },
+  // 分类汇总
   categoryList:async(ctx)=>{
     await category.find({},function(error,data){
       if(error) {
@@ -31,15 +32,32 @@ module.exports={
       }
     });
   },
+  // 添加分类
   addCategory: async (ctx) => {
     let name = ctx.request.body.name || '';
     let author = ctx.request.body.age || '';
-    await category.create({ 'name': name, 'author':author}, function(error){
+    let result;
+    await category.create({ 'name': name, 'author':author}, function(error,data){
         if(error) {
             console.log(error);
         } else {
-            ctx.response.body = 'success';
+           result = data;
         }
     });
-},
+    console.log(999,result);
+    ctx.response.body = '这次成功了';
+  },
+  delCategory:async(ctx)=>{
+    let _id = ctx.request.body._id;
+    console.log(_id);
+    let conditions = { '_id': _id };
+
+    await category.deleteOne(conditions, function(error){
+        if(error) {
+            console.log(error);
+        } else {
+            ctx.response.body = 'Delete success!';
+        }
+    });
+  },
 };

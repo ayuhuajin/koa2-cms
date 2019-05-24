@@ -4,6 +4,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
 const router = require('./router/router.js');
+const cors = require('koa2-cors');
+
 const app = new Koa();
 
 // 静态资源目录对于相对入口文件app.js的路径
@@ -12,6 +14,9 @@ const staticPath = './static';
 app.use(statics(
   path.join( __dirname,  staticPath)
 ));
+app.use(cors());
+// 具体参数我们在后面进行解释
+
 // parse request body:
 app.use(bodyParser());  //bodypaser要在router之前加载才能生效。
 
