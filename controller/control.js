@@ -34,24 +34,22 @@ module.exports={
   },
   // 添加分类
   addCategory: async (ctx) => {
+    console.log(1111,ctx.request.body.name);
     let name = ctx.request.body.name || '';
     let author = ctx.request.body.age || '';
-    let result;
-    await category.create({ 'name': name, 'author':author}, function(error,data){
+    await category.create({ 'name': name, 'author':author}, function(error){
         if(error) {
             console.log(error);
         } else {
-           result = data;
+           console.log('添加成功');
         }
     });
-    console.log(999,result);
-    ctx.response.body = '这次成功了';
+    ctx.response.body = 'success';
   },
+  // 删除分类
   delCategory:async(ctx)=>{
     let _id = ctx.request.body._id;
-    console.log(_id);
     let conditions = { '_id': _id };
-
     await category.deleteOne(conditions, function(error){
         if(error) {
             console.log(error);

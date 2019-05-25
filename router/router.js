@@ -11,15 +11,22 @@ module.exports = (app) =>{
     // ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET');
     await next();
   });
-  router.get('/index',async(ctx,next)=>{
+
+  // 获取GET请求数据源头
+  // http://localhost:12306/index/111/222?category=1&title=2
+  router.get('/index/:category/:title',async(ctx,next)=>{
+    console.log(ctx.request.url); // /index/111/222?category=1&title=2
+    console.log(ctx.query); // { category: '1', title: '2' }
+    console.log(ctx.querystring); // category=1&title=2
     ctx.body='index';
     await next();
   });
-  // ****************************  搜索  **********************************//
   router.get('/search', Control.search);
+  // ****************************  分类,增,删,改，查  **********************************//
   router.get('/categoryList', Control.categoryList);
   router.post('/addCategory', Control.addCategory);
-  router.delete('/delCategory', Control.delCategory);
+  router.post('/delCategory', Control.delCategory);
+  
   app.use(router.routes());   /*启动路由*/
   app.use(router.allowedMethods());
 };
