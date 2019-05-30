@@ -26,6 +26,8 @@ module.exports = (app) =>{
   router.get('/categoryList', Control.categoryList);
   router.post('/addCategory', Control.addCategory);
   router.post('/delCategory', Control.delCategory);
+  router.post('/updateCateGory', Control.updateCateGory);
+  router.get('/categoryView', Control.categoryView);
   
   app.use(router.routes());   /*启动路由*/
   app.use(router.allowedMethods());

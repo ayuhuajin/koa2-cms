@@ -21,7 +21,7 @@ module.exports={
           }
       });
   },
-  // 分类汇总
+  // 分类列表
   categoryList:async(ctx)=>{
     await category.find({},function(error,data){
       if(error) {
@@ -58,4 +58,36 @@ module.exports={
         }
     });
   },
+  // 修改分类名称
+  updateCateGory:async(ctx)=>{
+    let _id = ctx.request.body._id || '';
+    let name = ctx.request.body.name || '';
+    var conditions = {'_id' : _id};
+    var update = {$set : { 'name' : name}};
+    await category.update(conditions, update, function(error){
+      if(error) {
+          console.log(1111222223333,error);
+      } else {
+          ctx.response.body = '编辑成功';
+      }
+    });
+  },
+  // 根据Id 获取分类视图
+  categoryView:async(ctx)=>{
+    // let name = ctx.query.name || '';
+    // console.log(ctx.query.name,name);
+    // let { name = '1111'} = ctx.request.query;
+    // let _id = ctx.request.body._id;
+    // let _id = ctx.request.url;
+    let _id = ctx.query.id;
+    let conditions = { '_id': _id };
+    await category.find(conditions, function (error, data) {
+        if(error) {
+            console.log(error);
+        } else {
+            ctx.response.body = data;
+        }
+    });
+  }
+
 };
