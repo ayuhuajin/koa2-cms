@@ -48,8 +48,8 @@ module.exports={
   },
   // 删除分类
   delCategory:async(ctx)=>{
-    let _id = ctx.request.body._id;
-    let conditions = { '_id': _id };
+    let id = ctx.request.body.id;
+    let conditions = { '_id': id };
     await category.deleteOne(conditions, function(error){
         if(error) {
             console.log(error);
@@ -60,9 +60,9 @@ module.exports={
   },
   // 修改分类名称
   updateCateGory:async(ctx)=>{
-    let _id = ctx.request.body._id || '';
+    let id = ctx.request.body.id || '';
     let name = ctx.request.body.name || '';
-    var conditions = {'_id' : _id};
+    var conditions = {'_id' : id};
     var update = {$set : { 'name' : name}};
     await category.update(conditions, update, function(error){
       if(error) {
@@ -79,8 +79,8 @@ module.exports={
     // let { name = '1111'} = ctx.request.query;
     // let _id = ctx.request.body._id;
     // let _id = ctx.request.url;
-    let _id = ctx.query.id;
-    let conditions = { '_id': _id };
+    let id = ctx.query.id;
+    let conditions = { '_id': id };
     await category.find(conditions, function (error, data) {
         if(error) {
             console.log(error);
