@@ -23,14 +23,8 @@ module.exports={
   },
   // 分类列表
   categoryList:async(ctx)=>{
-    await category.find({},function(error,data){
-      if(error) {
-          console.log(error);
-      } else {
-          console.log(1111);
-          ctx.response.body = data;
-      }
-    });
+    let result = await category.find({});
+    ctx.response.body = result;
   },
   // 添加分类
   addCategory: async (ctx) => {
@@ -38,27 +32,26 @@ module.exports={
     let name = ctx.request.body.name || '';
     let author = ctx.request.body.age || '';
     let date = ctx.request.body.date || '';
-    await category.create({ 'name': name, 'author':author,'date':date}, function(error){
-        if(error) {
-            console.log(error);
-        } else {
-           console.log('添加成功');
-        }
-    });
-    ctx.response.body = 'success';
+    try{
+      await category.create({ 'name': name, 'author':author,'date':date});
+      ctx.response.body = 'success';
+    }catch(err){
+      ctx.body = '出错';
+    }
+    
   },
   // 删除分类
   delCategory:async(ctx)=>{
     let id = ctx.request.body.id;
     console.log(id);
     let conditions = { '_id': id };
-    await category.deleteOne(conditions, function(error){
-        if(error) {
-            console.log(error);
-        } else {
-            ctx.response.body = 'Delete success!';
-        }
-    });
+    try{
+      await category.deleteOne(conditions);
+      ctx.response.body = 'Delete success';
+    } catch(err){
+      ctx.response.body = '出错';
+    }
+   
   },
   // 修改分类名称
   updateCateGory:async(ctx)=>{
@@ -66,30 +59,19 @@ module.exports={
     let name = ctx.request.body.name || '';
     var conditions = {'_id' : id};
     var update = {$set : { 'name' : name}};
-    await category.update(conditions, update, function(error){
-      if(error) {
-          console.log(1111222223333,error);
-      } else {
-          ctx.response.body = '编辑成功';
-      }
-    });
+    try{
+      await category.update(conditions, update);
+      ctx.response.body = '编辑成功';
+    }catch(err){
+      ctx.response.body='编辑出错';
+    }
   },
   // 根据Id 获取分类视图
   categoryView:async(ctx)=>{
-    // let name = ctx.query.name || '';
-    // console.log(ctx.query.name,name);
-    // let { name = '1111'} = ctx.request.query;
-    // let _id = ctx.request.body._id;
-    // let _id = ctx.request.url;
     let id = ctx.query.id;
     let conditions = { '_id': id };
-    await category.find(conditions, function (error, data) {
-        if(error) {
-            console.log(error);
-        } else {
-            ctx.response.body = data;
-        }
-    });
+    let result = await category.find(conditions);
+    ctx.response.body = result;
   }
 
 };
