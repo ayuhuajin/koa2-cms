@@ -6,7 +6,6 @@ module.exports={
       if(error) {
         console.log('error:'+error);
       } else {
-        console.log(docs);
         ctx.response.body = docs;
       }
     });
@@ -26,10 +25,16 @@ module.exports={
     let limit =ctx.query.pageSize||10;
     let currentPage =ctx.query.pageNum||1;
     let name = ctx.query.name;
-    var query= new RegExp(name, 'i');//模糊查询参数
-    let total = await category.find({$or:[{'name': query}]});
-    let result = await category.find({$or:[{'name': query}]}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
-    console.log(result.length);
+    let total;
+    let result;
+    if(!name) {
+      total = await category.find({});
+      result = await category.find({}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    } else {
+      var query= new RegExp(name, 'i');//模糊查询参数
+      total = await category.find({$or:[{'name': query}]});
+      result = await category.find({$or:[{'name': query}]}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    }
     ctx.response.body = {
       total:total.length,
       data:result
