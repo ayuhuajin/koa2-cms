@@ -23,8 +23,17 @@ module.exports={
   },
   // 分类列表
   categoryList:async(ctx)=>{
-    let result = await category.find({});
-    ctx.response.body = result;
+    let limit =ctx.query.pageSize||10;
+    let currentPage =ctx.query.pageNum||1;
+    let name = ctx.query.name;
+    var query= new RegExp(name, 'i');//模糊查询参数
+    let total = await category.find({$or:[{'name': query}]});
+    let result = await category.find({$or:[{'name': query}]}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    console.log(result.length);
+    ctx.response.body = {
+      total:total.length,
+      data:result
+    };
   },
   // 添加分类
   addCategory: async (ctx) => {
@@ -72,6 +81,12 @@ module.exports={
     let conditions = { '_id': id };
     let result = await category.find(conditions);
     ctx.response.body = result;
+  },
+  // 根据名称获取列表
+  categorySearch:async(ctx)=>{
+    let name = ctx.query.name;
+    var query= new RegExp(name, 'i');//模糊查询参数
+    let result = await category.find({$or:[{'name': query}]});
+    ctx.response.body = result;
   }
-
 };
