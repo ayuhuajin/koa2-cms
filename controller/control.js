@@ -27,7 +27,7 @@ module.exports={
       if(error) {
           console.log(error);
       } else {
-          console.log(data);
+          console.log(1111);
           ctx.response.body = data;
       }
     });
@@ -37,7 +37,8 @@ module.exports={
     console.log(1111,ctx.request.body.name);
     let name = ctx.request.body.name || '';
     let author = ctx.request.body.age || '';
-    await category.create({ 'name': name, 'author':author}, function(error){
+    let date = ctx.request.body.date || '';
+    await category.create({ 'name': name, 'author':author,'date':date}, function(error){
         if(error) {
             console.log(error);
         } else {
@@ -49,6 +50,7 @@ module.exports={
   // 删除分类
   delCategory:async(ctx)=>{
     let id = ctx.request.body.id;
+    console.log(id);
     let conditions = { '_id': id };
     await category.deleteOne(conditions, function(error){
         if(error) {

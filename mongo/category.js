@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 // 分类
 let categorySchema = new mongoose.Schema({
   name:String,
-  author:String
+  author:String,
+  date : String,
+  // time:{ type:Date, default:Date.now }
 });
 // 创建model
 let category = mongoose.model('category',categorySchema,'category');
