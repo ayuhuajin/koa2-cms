@@ -6,14 +6,20 @@ module.exports={
     let total,result;
     let limit =ctx.query.pageSize||10;
     let currentPage =ctx.query.pageNum||1;
+    let categoryId =ctx.query.categoryId||'';
+    console.log(999,categoryId);
     let name = ctx.query.name;
-    if(!name) {
+    console.log(name);
+    if(!name && !categoryId) {
+
       total = await blog.find({});
       result = await blog.find({}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     } else {
       var query= new RegExp(name, 'i');//模糊查询参数
-      total = await blog.find({$or:[{'name': query}]});
-      result = await blog.find({$or:[{'name': query}]}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+      total = await blog.find({$or:[{'title': query}],'categoryId':categoryId});
+      result = await blog.find({$or:[{'title': query}],'categoryId':categoryId}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+      // console.log(123,categoryId);
+      // total = await blog.find({'categoryId':categoryId});
     }
     ctx.response.body = {
       total:total.length,
@@ -23,11 +29,12 @@ module.exports={
   // 添加博客
   addBlog:async(ctx)=>{
     let title = ctx.request.body.title||'';
-    let category = ctx.request.body.category||'';
+    let categoryId = ctx.request.body.categoryId||'';
     let content = ctx.request.body.content||'';
     let img = ctx.request.body.img||'';
+    let time = Date.now();
     try{
-      await blog.create({'title':title,'category':category,'content':content,'img':img});
+      await blog.create({'title':title,'categoryId':categoryId,'content':content,'img':img,'time':time});
       ctx.response.body = '成功博客添加';
     } catch(err) {
       ctx.body = '出错';
@@ -47,11 +54,11 @@ module.exports={
   updateBlog:async(ctx)=>{
     let id = ctx.request.body.id || '';
     let title = ctx.request.body.title||'';
-    let category = ctx.request.body.category||'';
+    let categoryId = ctx.request.body.categoryId||'';
     let content = ctx.request.body.content||'';
     let img = ctx.request.body.img||'';
     var conditions = {'_id' : id};
-    var update = {$set : { 'title' : title,'category' : category,'content' : content,'img' : img,}};
+    var update = {$set : { 'title' : title,'categoryId' : categoryId,'content' : content,'img' : img,}};
     try{
       await blog.update(conditions, update);
       ctx.response.body = '编辑成功';

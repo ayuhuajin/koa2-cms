@@ -4,7 +4,9 @@ let blogScheme = new mongoose.Schema({
   title:String,
   img:String,
   content:String,
-  category:String
+  categoryId:String,
+  time:{ type:Date, default:Date.now }
+  // timestamps: {createdAt: 'created', updatedAt: 'updated'}
 });
 
 let blog = mongoose.model('blog',blogScheme,'blog');

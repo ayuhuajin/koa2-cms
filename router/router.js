@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 const Control = require('../controller/control');
 const blog = require('../controller/blog');
-const koaBody = require('koa-body');
+// const koaBody = require('koa-body');
 const fs = require('fs');
 const path = require('path');
 
@@ -16,19 +16,19 @@ module.exports = (app) =>{
     await next();
   });
   //koaBody   配置
-  app.use(koaBody({
-    multipart: true, // 支持文件上传
-    encoding: 'gzip',
-    formidable: {
-      uploadDir: path.join(__dirname, '../static'), // 设置文件上传目录
-      keepExtensions: true, // 保持文件的后缀
-      maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
-      onFileBegin: (name, file) => { // 文件上传前的设置
-        console.log(`name: ${name}`);
-        console.log(file);
-      },
-    }
-  }));
+  // app.use(koaBody({
+  //   multipart: true, // 支持文件上传
+  //   encoding: 'gzip',
+  //   formidable: {
+  //     uploadDir: path.join(__dirname, '../static'), // 设置文件上传目录
+  //     keepExtensions: true, // 保持文件的后缀
+  //     maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
+  //     onFileBegin: (name, file) => { // 文件上传前的设置
+  //       console.log(`name: ${name}`);
+  //       console.log(file);
+  //     },
+  //   }
+  // }));
 
   // 获取GET请求数据源头
   // http://localhost:12306/index/111/222?category=1&title=2
@@ -75,7 +75,7 @@ module.exports = (app) =>{
   router.get('/categoryView', Control.categoryView);
   router.get('/categorySearch', Control.categorySearch);
 
-  // ****************************  博客,增,删,改，查  **********************************// 
+  // ****************************  博客,增,删,改，查  **********************************//
   router.get('/blogList',blog.blogList);
   router.post('/addBlog',blog.addBlog);
   router.post('/delBlog',blog.delBlog);
