@@ -1,5 +1,6 @@
 const router = require('koa-router')();
 const Control = require('../controller/control');
+const blog = require('../controller/blog');
 const koaBody = require('koa-body');
 const fs = require('fs');
 const path = require('path');
@@ -73,7 +74,14 @@ module.exports = (app) =>{
   router.post('/updateCateGory', Control.updateCateGory);
   router.get('/categoryView', Control.categoryView);
   router.get('/categorySearch', Control.categorySearch);
-  
+
+  // ****************************  博客,增,删,改，查  **********************************// 
+  router.get('/blogList',blog.blogList);
+  router.post('/addBlog',blog.addBlog);
+  router.post('/delBlog',blog.delBlog);
+  router.post('/updateBlog',blog.updateBlog);
+  router.get('/blogView',blog.blogView);
+
   app.use(router.routes());   /*启动路由*/
   app.use(router.allowedMethods());
 };
