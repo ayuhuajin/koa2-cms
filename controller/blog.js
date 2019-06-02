@@ -7,19 +7,14 @@ module.exports={
     let limit =ctx.query.pageSize||10;
     let currentPage =ctx.query.pageNum||1;
     let categoryId =ctx.query.categoryId||'';
-    console.log(999,categoryId);
     let name = ctx.query.name;
-    console.log(name);
     if(!name && !categoryId) {
-
       total = await blog.find({});
       result = await blog.find({}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     } else {
       var query= new RegExp(name, 'i');//模糊查询参数
       total = await blog.find({$or:[{'title': query}],'categoryId':categoryId});
       result = await blog.find({$or:[{'title': query}],'categoryId':categoryId}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
-      // console.log(123,categoryId);
-      // total = await blog.find({'categoryId':categoryId});
     }
     ctx.response.body = {
       total:total.length,
