@@ -1,20 +1,21 @@
 const router = require('koa-router')();
 const category = require('../controller/category');
 const blog = require('../controller/blog');
-// const koaBody = require('koa-body');
+const demo = require('../controller/demo');
 const fs = require('fs');
 const path = require('path');
+// const koaBody = require('koa-body');
 
 module.exports = (app) =>{
-
 
   // log request URL:
   app.use(async (ctx, next) => {
     console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
     ctx.set('Access-Control-Allow-Origin', '*');
-    // ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET');
+    ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET');
     await next();
   });
+  
   //koaBody   配置
   // app.use(koaBody({
   //   multipart: true, // 支持文件上传
@@ -29,16 +30,6 @@ module.exports = (app) =>{
   //     },
   //   }
   // }));
-
-  // 获取GET请求数据源头
-  // http://localhost:12306/index/111/222?category=1&title=2
-  router.get('/index/:category/:title',async(ctx,next)=>{
-    console.log(ctx.request.url); // /index/111/222?category=1&title=2
-    console.log(ctx.query); // { category: '1', title: '2' }
-    console.log(ctx.querystring); // category=1&title=2
-    ctx.body='index';
-    await next();
-  });
 
   // 上传文件接口;
   router.post('/upload', async(ctx) => {
@@ -65,8 +56,11 @@ module.exports = (app) =>{
       }
     };
   });
+  // ****************************  DEMO **********************************//
+  router.get('/search', demo.search);
+  router.get('/list', demo.list);
+  router.get('/index/:category/:title',demo.test);
 
-  router.get('/search', category.search);
   // ****************************  分类,增,删,改，查  **********************************//
   router.get('/categoryList', category.categoryList);
   router.post('/addCategory', category.addCategory);

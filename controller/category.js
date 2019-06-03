@@ -1,25 +1,5 @@
-const cmsModel = require('../mongo/mongo');
 const category = require('../mongo/category');
 module.exports={
-  list:async(ctx)=>{
-    await cmsModel.find({},function(error,docs) {
-      if(error) {
-        console.log('error:'+error);
-      } else {
-        ctx.response.body = docs;
-      }
-    });
-  },
-  search: async (ctx) => {
-      await cmsModel.find({'name':'wsinghai'}, function (error, data) {
-          if(error) {
-              console.log(error);
-          } else {
-              console.log(data);
-              ctx.response.body = data;
-          }
-      });
-  },
   // 分类列表
   categoryList:async(ctx)=>{
     let limit =ctx.query.pageSize||10;
