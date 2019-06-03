@@ -4,32 +4,42 @@ const blog = require('../controller/blog');
 const demo = require('../controller/demo');
 const fs = require('fs');
 const path = require('path');
-// const koaBody = require('koa-body');
+const koaBody = require('koa-body');
 
 module.exports = (app) =>{
 
+   // koaBody   配置
+   app.use(koaBody({
+    multipart: true, // 支持文件上传
+    encoding: 'gzip',
+    formidable: {
+      uploadDir: path.join(__dirname, '../static'), // 设置文件上传目录
+      keepExtensions: true, // 保持文件的后缀
+      maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
+      onFileBegin: (name, file) => { // 文件上传前的设置
+        console.log(`name: ${name}`);
+        console.log(file);
+      },
+    }
+  }));
+
   // log request URL:
   app.use(async (ctx, next) => {
-    console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
-    ctx.set('Access-Control-Allow-Origin', '*');
-    ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET');
-    await next();
+    try{
+      console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
+      console.log(132465798978);
+      ctx.set('Access-Control-Allow-Origin', '*');
+      ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET');
+      ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      console.log(ctx.request);
+      await next();
+    } catch(err) {
+      console.log('报错');
+    }
+    
   });
   
-  //koaBody   配置
-  // app.use(koaBody({
-  //   multipart: true, // 支持文件上传
-  //   encoding: 'gzip',
-  //   formidable: {
-  //     uploadDir: path.join(__dirname, '../static'), // 设置文件上传目录
-  //     keepExtensions: true, // 保持文件的后缀
-  //     maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
-  //     onFileBegin: (name, file) => { // 文件上传前的设置
-  //       console.log(`name: ${name}`);
-  //       console.log(file);
-  //     },
-  //   }
-  // }));
+ 
 
   // 上传文件接口;
   router.post('/upload', async(ctx) => {
@@ -52,7 +62,7 @@ module.exports = (app) =>{
     return ctx.body = {
       code: 200,
       data: {
-        url: 'http://' + ctx.headers.host  + file.name
+        url: 'http://' + ctx.headers.host  +'/'+ file.name
       }
     };
   });
