@@ -17,8 +17,8 @@ module.exports = (app) =>{
     await next();
   });
   
-  // koaBody   配置
-  app.use(koaBody({
+  // 上传文件接口;
+  router.post('/upload', koaBody({
     multipart: true, // 支持文件上传
     encoding: 'gzip',
     formidable: {
@@ -26,14 +26,11 @@ module.exports = (app) =>{
       keepExtensions: true, // 保持文件的后缀
       maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
       onFileBegin: (name, file) => { // 文件上传前的设置
-        // console.log(`name: ${name}`);
-        // console.log(file);
+        console.log(`name: ${name}`);
+        console.log(file);
       },
     }
-  }));
-
-  // 上传文件接口;
-  router.post('/upload', async(ctx) => {
+  }),async(ctx) => {
     const file = ctx.request.files.file; // 上传的文件在ctx.request.files.file
     // 创建可读流
     const reader = fs.createReadStream(file.path);
