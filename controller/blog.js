@@ -12,9 +12,10 @@ module.exports={
       total = await blog.find({});
       result = await blog.find({}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     } else {
-      var query= new RegExp(name, 'i');//模糊查询参数
-      total = await blog.find({$or:[{'title': query}],'categoryId':categoryId});
-      result = await blog.find({$or:[{'title': query}],'categoryId':categoryId}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+      var queryName= new RegExp(name, 'i');//模糊查询参数
+      var queryCategoryId= new RegExp(categoryId, 'i');//模糊查询参数
+      total = await blog.find({$or:[{'title': queryName}],'categoryId':queryCategoryId});
+      result = await blog.find({$or:[{'title': queryName}],'categoryId':queryCategoryId}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     }
     ctx.response.body = {
       total:total.length,
