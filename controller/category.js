@@ -9,11 +9,11 @@ module.exports={
     let result;
     if(!name) {
       total = await category.find({});
-      result = await category.find({}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+      result = await category.find({}).sort({'date':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     } else {
       var query= new RegExp(name, 'i');//模糊查询参数
       total = await category.find({$or:[{'name': query}]});
-      result = await category.find({$or:[{'name': query}]}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+      result = await category.find({$or:[{'name': query}]}).sort({'date':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     }
     ctx.response.body = {
       total:total.length,
