@@ -1,6 +1,7 @@
 const router = require('koa-router')();
 const category = require('../controller/category');
 const blog = require('../controller/blog');
+const user = require('../controller/user');
 const demo = require('../controller/demo');
 const fs = require('fs');
 const path = require('path');
@@ -16,7 +17,7 @@ module.exports = (app) =>{
     ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     await next();
   });
-  
+
   // 上传文件接口;
   router.post('/upload', koaBody({
     multipart: true, // 支持文件上传
@@ -58,6 +59,10 @@ module.exports = (app) =>{
   router.get('/search', demo.search);
   router.get('/list', demo.list);
   router.get('/index/:category/:title',demo.test);
+
+  // ****************************  用户与登录  **********************************//
+  router.post('/login',user.login);
+  router.post('/addUser',user.addUser);
 
   // ****************************  分类,增,删,改，查  **********************************//
   router.get('/categoryList', category.categoryList);

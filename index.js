@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
 const router = require('./router/router.js');
+const koajwt = require('koa-jwt');
 const cors = require('koa2-cors');
 
 const app = new Koa();
@@ -19,6 +20,24 @@ app.use(cors());
 
 // parse request body:
 app.use(bodyParser());  //bodypaser要在router之前加载才能生效。
+
+// 错误处理 返回401
+app.use((ctx, next) => {
+  return next().catch((err) => {
+      if(err.status === 401){
+          ctx.status = 401;
+        ctx.body = 'Protected resource, use Authorization header to get access\n';
+      }else{
+          throw err;
+      }
+  });
+});
+
+app.use(koajwt({
+  secret: 'my_token'
+}).unless({
+  path: [/\/login/]
+}));
 
 router(app);
 
