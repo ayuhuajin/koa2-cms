@@ -1,5 +1,6 @@
 const user = require('../mongo/user');
 const jwt = require('jsonwebtoken');
+// const secret = require('../utils/secret.js'); //对称加解密
 
 module.exports={
   // 登录
