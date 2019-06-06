@@ -21,7 +21,7 @@ module.exports={
       const token = jwt.sign({
         name: result.name,
         _id: result._id
-      }, 'my_token', { expiresIn: '10min' });
+      }, 'my_token', { expiresIn: '2h' });
       return ctx.body = {
         code: '200',
         data: token,
