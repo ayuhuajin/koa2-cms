@@ -62,7 +62,11 @@ module.exports = (app) =>{
 
   // ****************************  用户与登录  **********************************//
   router.post('/login',user.login);
+  router.get('/userList',user.userList);
   router.post('/addUser',user.addUser);
+  router.post('/delUser',user.delUser);
+  router.post('/updateUser',user.updateUser);
+  router.get('/userView',user.userView);
 
   // ****************************  分类,增,删,改，查  **********************************//
   router.get('/categoryList', category.categoryList);
