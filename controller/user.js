@@ -34,7 +34,7 @@ module.exports={
         _id: result._id
       }, 'my_token', { expiresIn: '2min' });
       return ctx.body = {
-        code: '000001',
+        code: '200',
         data: token,
         msg: '登录成功'
       };
