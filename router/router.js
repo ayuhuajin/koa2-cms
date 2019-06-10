@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const category = require('../controller/category');
 const blog = require('../controller/blog');
 const user = require('../controller/user');
+const permission = require('../controller/permission');
 const demo = require('../controller/demo');
 const fs = require('fs');
 const path = require('path');
@@ -67,6 +68,10 @@ module.exports = (app) =>{
   router.post('/delUser',user.delUser);
   router.post('/updateUser',user.updateUser);
   router.get('/userView',user.userView);
+
+  // ****************************  权限增删改  **********************************//
+  router.post('/addPermission',permission.addPermission);
+  router.get('/permissionList',permission.permissionList);
 
   // ****************************  分类,增,删,改，查  **********************************//
   router.get('/categoryList', category.categoryList);
