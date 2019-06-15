@@ -4,6 +4,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
 const router = require('./router/router.js');
+const koajwt = require('koa-jwt');
+const cors = require('koa2-cors');
+
 const app = new Koa();
 
 // 静态资源目录对于相对入口文件app.js的路径
@@ -12,13 +15,35 @@ const staticPath = './static';
 app.use(statics(
   path.join( __dirname,  staticPath)
 ));
+app.use(cors());
+// 具体参数我们在后面进行解释
+
 // parse request body:
 app.use(bodyParser());  //bodypaser要在router之前加载才能生效。
 
+// 错误处理 返回401
+app.use((ctx, next) => {
+  return next().catch((err) => {
+      if(err.status === 401){
+          ctx.status = 401;
+        ctx.body = 'Protected resource, use Authorization header to get access\n';
+      }else{
+          throw err;
+      }
+  });
+});
+
+app.use(koajwt({
+  secret: 'my_token'
+}).unless({
+  path: [/\/login/]
+}));
+
 router(app);
 
-var db =mongoose.connect('mongodb://127.0.0.1:27017/hai_cms');
-console.log(db);
+//链接hai_cms 数据库
+// mongoose.connect('mongodb://127.0.0.1:27017/hai_cms',{ useNewUrlParser: true });
+mongoose.connect('mongodb://193.112.95.253/hai_cms',{ useNewUrlParser: true });
 mongoose.connection.on('error', function (error) {
   console.log('数据库连接失败：' + error);
 });
