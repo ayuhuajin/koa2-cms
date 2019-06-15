@@ -6,7 +6,7 @@ let blogScheme = new mongoose.Schema({
   content:String,
   categoryId:String,
   time:{ type:Date, default:Date.now }
-  // timestamps: {createdAt: 'created', updatedAt: 'updated'}
+  // timestamps: {createdAt: 'created', updatedAt: 'updated1'}
 });
 
 let blog = mongoose.model('blog',blogScheme,'blog');
