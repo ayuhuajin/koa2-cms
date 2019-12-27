@@ -21,7 +21,7 @@ app.use(cors());
 // parse request body:
 app.use(bodyParser());  //bodypaser要在router之前加载才能生效。
 
-// 错误处理 返回401
+// 错误处理 返回401 中间件对token进行验证
 app.use((ctx, next) => {
   return next().catch((err) => {
       if(err.status === 401){
@@ -36,7 +36,7 @@ app.use((ctx, next) => {
 app.use(koajwt({
   secret: 'my_token'
 }).unless({
-  path: [/\/login/]
+  path: ['/login','/getBlogList','/getCategoryList','/getBlogView'] // 不用进行授权的接口,
 }));
 
 router(app);
