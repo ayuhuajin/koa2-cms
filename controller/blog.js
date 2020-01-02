@@ -5,7 +5,7 @@ module.exports={
   blogList:async(ctx)=>{
     let total,result;
     let limit =ctx.query.pageSize||10;
-    let currentPage =ctx.query.pageNum||1;
+    let currentPage =ctx.query.pageNumber||1;
     let categoryId =ctx.query.categoryId||'';
     let name = ctx.query.name;
     if(!name && !categoryId) {
@@ -25,7 +25,7 @@ module.exports={
   getBlogList:async(ctx)=>{
     let total,result;
     let limit =ctx.query.pageSize||10;
-    let currentPage =ctx.query.pageNum||1;
+    let currentPage =ctx.query.pageNumber||1;
     let categoryId =ctx.query.categoryId||'';
     let name = ctx.query.name;
     if(!name && !categoryId) {

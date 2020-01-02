@@ -3,7 +3,7 @@ module.exports={
   // 分类列表
   categoryList:async(ctx)=>{
     let limit =ctx.query.pageSize||10;
-    let currentPage =ctx.query.pageNum||1;
+    let currentPage =ctx.query.pageNumber||1;
     let name = ctx.query.name;
     let total;
     let result;
@@ -22,7 +22,7 @@ module.exports={
   },
   getCategoryList:async(ctx)=>{
     let limit =ctx.query.pageSize||10;
-    let currentPage =ctx.query.pageNum||1;
+    let currentPage =ctx.query.pageNumber||1;
     let name = ctx.query.name;
     let total;
     let result;
