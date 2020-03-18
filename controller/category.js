@@ -3,7 +3,26 @@ module.exports={
   // 分类列表
   categoryList:async(ctx)=>{
     let limit =ctx.query.pageSize||10;
-    let currentPage =ctx.query.pageNum||1;
+    let currentPage =ctx.query.pageNumber||1;
+    let name = ctx.query.name;
+    let total;
+    let result;
+    if(!name) {
+      total = await category.find({});
+      result = await category.find({}).sort({'date':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    } else {
+      var query= new RegExp(name, 'i');//模糊查询参数
+      total = await category.find({$or:[{'name': query}]});
+      result = await category.find({$or:[{'name': query}]}).sort({'date':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    }
+    ctx.response.body = {
+      total:total.length,
+      data:result
+    };
+  },
+  getCategoryList:async(ctx)=>{
+    let limit =ctx.query.pageSize||10;
+    let currentPage =ctx.query.pageNumber||1;
     let name = ctx.query.name;
     let total;
     let result;

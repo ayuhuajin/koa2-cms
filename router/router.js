@@ -81,12 +81,20 @@ module.exports = (app) =>{
   router.get('/categoryView', category.categoryView);
   router.get('/categorySearch', category.categorySearch);
 
+  // 展示
+  router.get('/getCategoryList', category.getCategoryList);
+
+
   // ****************************  博客,增,删,改，查  **********************************//
   router.get('/blogList',blog.blogList);
   router.post('/addBlog',blog.addBlog);
   router.post('/delBlog',blog.delBlog);
   router.post('/updateBlog',blog.updateBlog);
   router.get('/blogView',blog.blogView);
+
+  // 展示
+  router.get('/getBlogList',blog.getBlogList);
+  router.get('/getBlogView',blog.getBlogView);
 
   app.use(router.routes());   /*启动路由*/
   app.use(router.allowedMethods());

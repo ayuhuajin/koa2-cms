@@ -5,7 +5,27 @@ module.exports={
   blogList:async(ctx)=>{
     let total,result;
     let limit =ctx.query.pageSize||10;
-    let currentPage =ctx.query.pageNum||1;
+    let currentPage =ctx.query.pageNumber||1;
+    let categoryId =ctx.query.categoryId||'';
+    let name = ctx.query.name;
+    if(!name && !categoryId) {
+      total = await blog.find({});
+      result = await blog.find({}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    } else {
+      var queryName= new RegExp(name, 'i');//模糊查询参数
+      var queryCategoryId= new RegExp(categoryId, 'i');//模糊查询参数
+      total = await blog.find({$or:[{'title': queryName}],'categoryId':queryCategoryId});
+      result = await blog.find({$or:[{'title': queryName}],'categoryId':queryCategoryId}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    }
+    ctx.response.body = {
+      total:total.length,
+      data:result
+    };
+  },
+  getBlogList:async(ctx)=>{
+    let total,result;
+    let limit =ctx.query.pageSize||10;
+    let currentPage =ctx.query.pageNumber||1;
     let categoryId =ctx.query.categoryId||'';
     let name = ctx.query.name;
     if(!name && !categoryId) {
@@ -64,6 +84,13 @@ module.exports={
   },
   // 博客视图
   blogView:async(ctx)=>{
+    let id = ctx.query.id;
+    let conditions = { '_id': id };
+    let result = await blog.find(conditions);
+    ctx.response.body = result;
+  },
+  // 博客视图
+  getBlogView:async(ctx)=>{
     let id = ctx.query.id;
     let conditions = { '_id': id };
     let result = await blog.find(conditions);
