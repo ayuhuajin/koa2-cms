@@ -1,11 +1,11 @@
 const Koa = require('koa');
 const statics = require('koa-static');
 const path = require('path');
-const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
 const router = require('./router/router.js');
 const koajwt = require('koa-jwt');
 const cors = require('koa2-cors');
+require('./utils/mongo');
 
 const app = new Koa();
 
@@ -41,14 +41,5 @@ app.use(koajwt({
 
 router(app);
 
-//链接hai_cms 数据库
-// mongoose.connect('mongodb://127.0.0.1:27017/hai_cms',{ useNewUrlParser: true });
-mongoose.connect('mongodb://193.112.95.253/hai_cms',{ useNewUrlParser: true });
-mongoose.connection.on('error', function (error) {
-  console.log('数据库连接失败：' + error);
-});
-mongoose.connection.on('open', function () {
-  console.log('------数据库连接成功！------');
-});
 app.listen(12306);
 console.log('[demo] start-quick is starting at port 12306');
