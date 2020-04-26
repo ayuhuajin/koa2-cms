@@ -1,6 +1,8 @@
 const router = require('koa-router')();
 const category = require('../controller/category');
+const toolType = require('../controller/toolType');
 const blog = require('../controller/blog');
+const tools = require('../controller/tools');
 const user = require('../controller/user');
 const permission = require('../controller/permission');
 const demo = require('../controller/demo');
@@ -80,9 +82,16 @@ module.exports = (app) =>{
   router.post('/updateCateGory', category.updateCateGory);
   router.get('/categoryView', category.categoryView);
   router.get('/categorySearch', category.categorySearch);
-
   // 展示
   router.get('/getCategoryList', category.getCategoryList);
+
+  // ****************************  工具分类,增,删,改，查  **********************************//
+  router.get('/type/categoryList', toolType.categoryList);
+  router.post('/type/addCategory', toolType.addCategory);
+  router.post('/type/delCategory', toolType.delCategory);
+  router.post('/type/updateCateGory', toolType.updateCateGory);
+  router.get('/type/categoryView', toolType.categoryView);
+  router.get('/type/categorySearch', toolType.categorySearch);
 
 
   // ****************************  博客,增,删,改，查  **********************************//
@@ -95,6 +104,13 @@ module.exports = (app) =>{
   // 展示
   router.get('/getBlogList',blog.getBlogList);
   router.get('/getBlogView',blog.getBlogView);
+
+  // ****************************  在线工具,增,删,改，查  **********************************//
+  router.get('/tools/blogList',tools.blogList);
+  router.post('/tools/addBlog',tools.addBlog);
+  router.post('/tools/delBlog',tools.delBlog);
+  router.post('/tools/updateBlog',tools.updateBlog);
+  router.get('/tools/blogView',tools.blogView);
 
   app.use(router.routes());   /*启动路由*/
   app.use(router.allowedMethods());
