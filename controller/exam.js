@@ -6,16 +6,15 @@ module.exports={
     let total,result;
     let limit =ctx.query.pageSize||10;
     let currentPage =ctx.query.pageNumber||1;
-    let categoryId =ctx.query.categoryId||'';
-    let name = ctx.query.name;
-    if(!name && !categoryId) {
+    let subject =ctx.query.subject||'';
+    let title = ctx.query.title;
+    if(!title && !subject) {
       total = await exam.find({});
       result = await exam.find({}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     } else {
-      var queryName= new RegExp(name, 'i');//模糊查询参数
-      var queryCategoryId= new RegExp(categoryId, 'i');//模糊查询参数
-      total = await exam.find({$or:[{'title': queryName}],'categoryId':queryCategoryId});
-      result = await exam.find({$or:[{'title': queryName}],'categoryId':queryCategoryId}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+      var queryName= new RegExp(title, 'i');//模糊查询参数
+      total = await exam.find({$or:[{'title': queryName}],'subject':subject});
+      result = await exam.find({$or:[{'title': queryName}],'subject':subject}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     }
     ctx.response.body = {
       total:total.length,
