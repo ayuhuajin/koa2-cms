@@ -36,7 +36,7 @@ module.exports={
       ctx.body = '出错';
     }
   },
-  // 删除博客
+  // 删除试卷
   delExam:async(ctx)=>{
     let id = ctx.request.body.id;
     try{
@@ -46,7 +46,7 @@ module.exports={
       ctx.response.body = '删除失败';
     }
   },
-   // 修改博客
+   // 修改试卷
    updateExam:async(ctx)=>{
     let id = ctx.request.body.id || '';
     let title = ctx.request.body.title||'';
@@ -62,7 +62,7 @@ module.exports={
       ctx.response.body='编辑出错';
     }
   },
-  // 博客视图
+  // 试卷视图
   examView:async(ctx)=>{
     let id = ctx.query.id;
     let conditions = { '_id': id };
