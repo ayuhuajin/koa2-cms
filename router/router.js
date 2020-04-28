@@ -107,11 +107,11 @@ module.exports = (app) =>{
   router.get('/getBlogView',blog.getBlogView);
 
   // ****************************  在线工具,增,删,改，查  **********************************//
-  router.get('/tools/blogList',tools.blogList);
-  router.post('/tools/addBlog',tools.addBlog);
-  router.post('/tools/delBlog',tools.delBlog);
-  router.post('/tools/updateBlog',tools.updateBlog);
-  router.get('/tools/blogView',tools.blogView);
+  router.get('/tools/toolList',tools.toolList);
+  router.post('/tools/addTool',tools.addTool);
+  router.post('/tools/delTool',tools.delTool);
+  router.post('/tools/updateTool',tools.updateTool);
+  router.get('/tools/toolView',tools.toolView);
 
   // ****************************  试卷,增,删,改,查  **********************************//
   router.get('/exam/examList',exam.examList);

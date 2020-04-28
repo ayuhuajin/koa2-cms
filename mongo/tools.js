@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
-let blogScheme = new mongoose.Schema({
+let toolScheme = new mongoose.Schema({
   title:String,
   img:String,
-  content:String,
+  desc:String,
+  link:String,
   categoryId:String,
   time:{ type:Date, default:Date.now }
   // timestamps: {createdAt: 'created', updatedAt: 'updated'}
 });
 
-let tools = mongoose.model('tools',blogScheme,'tools');
+let tools = mongoose.model('tools',toolScheme,'tools');
 
 module.exports = tools;
