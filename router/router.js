@@ -4,6 +4,7 @@ const toolType = require('../controller/toolType');
 const blog = require('../controller/blog');
 const tools = require('../controller/tools');
 const exam = require('../controller/exam');
+const question = require('../controller/question');
 const user = require('../controller/user');
 const permission = require('../controller/permission');
 const demo = require('../controller/demo');
@@ -119,6 +120,10 @@ module.exports = (app) =>{
   router.post('/exam/delExam',exam.delExam);
   router.post('/exam/updateExam',exam.updateExam);
   router.get('/exam/examView',exam.examView);
+
+  // ****************************  试题,增,删,改,查  **********************************//
+  router.get('/question/questionList',question.questionList);
+  router.post('/question/addQuestion',question.addQuestion);
 
  
   app.use(router.routes());   /*启动路由*/
