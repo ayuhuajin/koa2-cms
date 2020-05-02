@@ -32,7 +32,7 @@ module.exports={
     let time = Date.now();
     try{
       await tools.create({'title':title,'categoryId':categoryId,'desc':desc,'link':link,'img':img,'time':time});
-      ctx.response.body = '成功博客添加';
+      ctx.response.body = '成功添加工具';
     } catch(err) {
       ctx.body = '出错';
     }

@@ -24,17 +24,22 @@ module.exports={
   },
   // 添加试题
   addQuestion:async(ctx)=>{
-    let title = ctx.request.body.title||'';
-    let categoryId = ctx.request.body.categoryId||'';
-    let desc = ctx.request.body.desc||'';
-    let link = ctx.request.body.link||'';
-    let img = ctx.request.body.img||'';
+    let questionNum = ctx.request.body.questionNum||'';
+    let questionType = ctx.request.body.questionType||'';
+    let questionTitle = ctx.request.body.questionTitle||'';
+    let level = ctx.request.body.level||'';
+    let subject = ctx.request.body.subject||'';
+    let type = ctx.request.body.type||'';
+    let testPaper = ctx.request.body.testPaper||'';
+    let questionDesc = ctx.request.body.questionDesc||'';
+    let chooseList = ctx.request.body.chooseList||'';
+    let answer = ctx.request.body.answer||'';
     let time = Date.now();
     try{
-      await question.create({'title':title,'categoryId':categoryId,'desc':desc,'link':link,'img':img,'time':time});
-      ctx.response.body = '成功博客添加';
+      await question.create({'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'chooseList':chooseList,'answer':answer});
+      ctx.response.body = '成功添加试题';
     } catch(err) {
-      ctx.body = '出错';
+      ctx.body = '添加出错';
     }
   },
   // 删除试题

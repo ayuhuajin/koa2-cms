@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 
 let questionScheme = new mongoose.Schema({
   questionType:Number,
-  questionNum:String,
+  questionNum:Number,
   subject:Number,
-  level:String,
-  TestPaper:String,
-  title:String,
+  level:Number,
+  testPaper:Number,
+  questionTitle:String,
   opTions:Array, //选项
-  answer:String,
-  desc:String, //解析
+  questionDesc:String, //解析
+  chooseList:Array,
+  answer:Array,
   time:{ type:Date, default:Date.now }
 });
 
