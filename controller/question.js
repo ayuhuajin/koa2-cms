@@ -22,7 +22,7 @@ module.exports={
       data:result
     };
   },
-  // 添加工具
+  // 添加试题
   addQuestion:async(ctx)=>{
     let title = ctx.request.body.title||'';
     let categoryId = ctx.request.body.categoryId||'';
@@ -35,6 +35,16 @@ module.exports={
       ctx.response.body = '成功博客添加';
     } catch(err) {
       ctx.body = '出错';
+    }
+  },
+  // 删除试题
+  delQuestion:async(ctx)=>{
+    let id = ctx.request.body.id;
+    try{
+      await question.deleteOne({'_id':id});
+      ctx.response.body = '删除成功';
+    } catch(e) {
+      ctx.response.body = '删除失败';
     }
   },
 };
