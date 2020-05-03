@@ -54,6 +54,37 @@ module.exports={
       ctx.response.body = '删除失败';
     }
   },
+  // 修改博客
+  updateQuestion:async(ctx)=>{
+    let id = ctx.request.body.id || '';
+    let questionNum = ctx.request.body.questionNum||'';
+    let questionType = ctx.request.body.questionType||'';
+    let questionTitle = ctx.request.body.questionTitle||'';
+    let level = ctx.request.body.level||'';
+    let subject = ctx.request.body.subject||'';
+    let type = ctx.request.body.type||'';
+    let testPaper = ctx.request.body.testPaper||'';
+    let questionDesc = ctx.request.body.questionDesc||'';
+    let chooseList = ctx.request.body.chooseList||'';
+    let opTions = ctx.request.body.options||'';
+    let answer = ctx.request.body.answer||'';
+    let time = Date.now();
+    var conditions = {'_id' : id};
+    var update = {$set : {'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'chooseList':chooseList,'opTions':opTions,'answer':answer}};
+    try{
+      await question.update(conditions, update);
+      ctx.response.body = '编辑成功';
+    }catch(err){
+      ctx.response.body='编辑出错';
+    }
+  },
+  // 博客视图
+  questionView:async(ctx)=>{
+    let id = ctx.query.id;
+    let conditions = { '_id': id };
+    let result = await question.find(conditions);
+    ctx.response.body = result;
+  },
   //试卷详情（试卷试题）
   examDetail:async(ctx)=>{
     let total,result;

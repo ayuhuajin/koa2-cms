@@ -127,6 +127,8 @@ module.exports = (app) =>{
   router.get('/question/questionList',question.questionList);
   router.post('/question/addQuestion',question.addQuestion);
   router.post('/question/delQuestion',question.delQuestion);
+  router.post('/question/updateQuestion',question.updateQuestion);
+  router.get('/question/questionView',question.questionView);
 
  
   app.use(router.routes());   /*启动路由*/
