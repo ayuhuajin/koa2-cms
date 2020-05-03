@@ -52,4 +52,17 @@ module.exports={
       ctx.response.body = '删除失败';
     }
   },
+  //试卷详情（试卷试题）
+  examDetail:async(ctx)=>{
+    let total,result;
+    let limit =ctx.query.pageSize||10;
+    let currentPage =ctx.query.pageNumber||1;
+    let testPaper = ctx.query.examId||'';
+    total = await question.find({'testPaper': testPaper});
+    result = await question.find({'testPaper': testPaper}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    ctx.response.body = {
+      total:total.length,
+      data:result
+    };
+  },
 };

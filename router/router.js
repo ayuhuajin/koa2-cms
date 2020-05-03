@@ -120,6 +120,8 @@ module.exports = (app) =>{
   router.post('/exam/delExam',exam.delExam);
   router.post('/exam/updateExam',exam.updateExam);
   router.get('/exam/examView',exam.examView);
+  router.get('/exam/examDetail',question.examDetail); //试卷详情
+
 
   // ****************************  试题,增,删,改,查  **********************************//
   router.get('/question/questionList',question.questionList);
