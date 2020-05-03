@@ -24,6 +24,7 @@ module.exports={
   },
   // 添加试题
   addQuestion:async(ctx)=>{
+    console.log(ctx.request.body.options,89898);
     let questionNum = ctx.request.body.questionNum||'';
     let questionType = ctx.request.body.questionType||'';
     let questionTitle = ctx.request.body.questionTitle||'';
@@ -33,10 +34,11 @@ module.exports={
     let testPaper = ctx.request.body.testPaper||'';
     let questionDesc = ctx.request.body.questionDesc||'';
     let chooseList = ctx.request.body.chooseList||'';
+    let opTions = ctx.request.body.options||'';
     let answer = ctx.request.body.answer||'';
     let time = Date.now();
     try{
-      await question.create({'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'chooseList':chooseList,'answer':answer});
+      await question.create({'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'chooseList':chooseList,'opTions':opTions,'answer':answer});
       ctx.response.body = '成功添加试题';
     } catch(err) {
       ctx.body = '添加出错';
