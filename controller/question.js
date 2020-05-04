@@ -35,9 +35,10 @@ module.exports={
     let questionDesc = ctx.request.body.questionDesc||'';
     let options = ctx.request.body.options||'';
     let answer = ctx.request.body.answer||'';
+    let reply = ctx.request.body.reply||'';
     let time = Date.now();
     try{
-      await question.create({'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'options':options,'answer':answer});
+      await question.create({'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'options':options,'answer':answer,'reply':reply});
       ctx.response.body = '成功添加试题';
     } catch(err) {
       ctx.body = '添加出错';
@@ -66,9 +67,10 @@ module.exports={
     let questionDesc = ctx.request.body.questionDesc||'';
     let options = ctx.request.body.options||'';
     let answer = ctx.request.body.answer||'';
+    let reply = ctx.request.body.reply||'';
     let time = Date.now();
     var conditions = {'_id' : id};
-    var update = {$set : {'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'options':options,'answer':answer}};
+    var update = {$set : {'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'options':options,'answer':answer,'reply':reply}};
     try{
       await question.update(conditions, update);
       ctx.response.body = '编辑成功';

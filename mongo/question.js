@@ -11,6 +11,7 @@ let questionScheme = new mongoose.Schema({
   questionDesc:String, //解析
   chooseList:Array,
   answer:Array,
+  reply:String,
   time:{ type:Date, default:Date.now }
 });
 
