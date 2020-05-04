@@ -7,7 +7,7 @@ let questionScheme = new mongoose.Schema({
   level:Number,
   testPaper:String,
   questionTitle:String,
-  opTions:Array, //选项
+  options:Array, //选项
   questionDesc:String, //解析
   chooseList:Array,
   answer:Array,
