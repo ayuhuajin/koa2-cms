@@ -113,6 +113,8 @@ module.exports = (app) =>{
   router.post('/tools/delTool',tools.delTool);
   router.post('/tools/updateTool',tools.updateTool);
   router.get('/tools/toolView',tools.toolView);
+  // 展示
+  router.get('/tools/getToolList',tools.getToolList);
 
   // ****************************  试卷,增,删,改,查  **********************************//
   router.get('/exam/examList',exam.examList);

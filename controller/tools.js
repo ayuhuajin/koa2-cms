@@ -70,5 +70,28 @@ module.exports={
     let conditions = { '_id': id };
     let result = await tools.find(conditions);
     ctx.response.body = result;
-  }
+  },
+
+  //工具列表--前端展示
+  getToolList:async(ctx)=>{
+    let total,result;
+    let limit =ctx.query.pageSize||10;
+    let currentPage =ctx.query.pageNumber||1;
+    let categoryId =ctx.query.categoryId||'';
+    let name = ctx.query.name;
+    if(!name && !categoryId) {
+      total = await tools.find({});
+      result = await tools.find({}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    } else {
+      var queryName= new RegExp(name, 'i');//模糊查询参数
+      var queryCategoryId= new RegExp(categoryId, 'i');//模糊查询参数
+      total = await tools.find({$or:[{'title': queryName}],'categoryId':queryCategoryId});
+      result = await tools.find({$or:[{'title': queryName}],'categoryId':queryCategoryId}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+    }
+    ctx.response.body = {
+      total:total.length,
+      data:result
+    };
+  },
+
 };
