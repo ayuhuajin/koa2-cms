@@ -24,24 +24,25 @@ module.exports={
   },
   // 添加试题
   addQuestion:async(ctx)=>{
-    console.log(ctx.request.body.options,89898);
-    let questionNum = ctx.request.body.questionNum||'';
-    let questionType = ctx.request.body.questionType||'';
-    let questionTitle = ctx.request.body.questionTitle||'';
-    let level = ctx.request.body.level||'';
-    let subject = ctx.request.body.subject||'';
-    let type = ctx.request.body.type||'';
-    let testPaper = ctx.request.body.testPaper||'';
-    let questionDesc = ctx.request.body.questionDesc||'';
-    let options = ctx.request.body.options||'';
-    let answer = ctx.request.body.answer||'';
-    let reply = ctx.request.body.reply||'';
-    let time = Date.now();
-    try{
-      await question.create({'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'options':options,'answer':answer,'reply':reply});
-      ctx.response.body = '成功添加试题';
-    } catch(err) {
-      ctx.body = '添加出错';
+    for(let i= 0; i<ctx.request.body.length; i++) {
+      let questionNum = ctx.request.body[i].questionNum||'';
+      let questionType = ctx.request.body[i].questionType||'';
+      let questionTitle = ctx.request.body[i].questionTitle||'';
+      let level = ctx.request.body[i].level||'';
+      let subject = ctx.request.body[i].subject||'';
+      let type = ctx.request.body[i].type||'';
+      let testPaper = ctx.request.body[i].testPaper||'';
+      let questionDesc = ctx.request.body[i].questionDesc||'';
+      let options = ctx.request.body[i].options||'';
+      let answer = ctx.request.body[i].answer||'';
+      let reply = ctx.request.body[i].reply||'';
+      let time = Date.now();
+      try{
+        await question.create({'questionNum':questionNum,'questionType':questionType,'questionTitle':questionTitle,'level':level,'subject':subject,'type':type,'testPaper':testPaper,'questionDesc':questionDesc,'time':time,'options':options,'answer':answer,'reply':reply});
+        ctx.response.body = '成功添加试题';
+      } catch(err) {
+        ctx.body = '添加出错';
+      }
     }
   },
   // 删除试题
