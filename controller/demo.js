@@ -1,4 +1,5 @@
 const cmsModel = require('../mongo/demo');
+const Axios = require('axios');
 
 module.exports = {
   // 获取GET请求数据源头
@@ -27,5 +28,23 @@ module.exports = {
               ctx.response.body = data;
           }
       });
+  },
+  wxtoken:async(ctx)=>{
+    console.log(ctx.query.code,3546345345);
+    let code = ctx.query.code;
+     await Axios.get(
+      `https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxb534ddc40d15ecfc&secret=ae877da26da8e05dbf26ba9014b090e3&code=${code}&grant_type=authorization_code`
+    ).then(response => {
+      ctx.response.body = response.data;
+      Axios.get(
+        ` https://api.weixin.qq.com/sns/auth?access_token=${response.data.access_token}&openid=${response.data.openid}&lang=zh_CN`
+      ).then(response => {
+        // ctx.response.body = response.data;
+        console.log(response,55789);
+      });
+    });
+    // console.log(result,99998);
+    // ctx.response.body = result.data;
+    // ctx.response.body
   },
 };

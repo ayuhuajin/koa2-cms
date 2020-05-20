@@ -64,6 +64,8 @@ module.exports = (app) =>{
   router.get('/search', demo.search);
   router.get('/list', demo.list);
   router.get('/index/:category/:title',demo.test);
+  router.get('/wxtoken',demo.wxtoken); //微信获取token  openid
+  
 
   // ****************************  用户与登录  **********************************//
   router.post('/login',user.login);
