@@ -34,21 +34,35 @@ module.exports = (app) =>{
       onFileBegin: (name, file) => { // 文件上传前的设置
         console.log(`name: ${name}`);
         console.log(file);
+        // fs.mkdirSync('uploa44444d');
+       
+        
       },
     }
   }),async(ctx) => {
     const file = ctx.request.files.file; // 上传的文件在ctx.request.files.file
     // 创建可读流
+    console.log(ctx.request,78);
+    
     const reader = fs.createReadStream(file.path);
     // 修改文件的名称
     // var myDate = new Date();
     // var newFilename = file.name.split('.')[0] + '_' + myDate.getTime() + '.' + file.name.split('.')[1];
-    var targetPath = path.join(__dirname, '../static') + `/${file.name}`;
+    // var targetPath = path.join(__dirname, `../static`) + `/${file.name}`;
+    // console.log(targetPath,678);
+    var targetPath = path.join(__dirname, `../static/12314`);
+    console.log(path);
+    if (!fs.existsSync(targetPath)) { // 检查是否有“public/upload/”文件夹
+      fs.mkdirSync(targetPath); // 没有就创建
+    }
+    file.path = `${targetPath}/${file.name}`;
+    
+    
     // if (!fs.existsSync(targetPath)) { // 检查是否有“public/upload/”文件夹
     //   fs.mkdirSync(targetPath); // 没有就创建
     // }
     //创建可写流
-    const upStream = fs.createWriteStream(targetPath);
+    const upStream = fs.createWriteStream(file.path);
     // 可读流通过管道写入可写流
     reader.pipe(upStream);
     //ctx.redirect('/')
