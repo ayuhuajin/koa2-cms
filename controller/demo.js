@@ -47,4 +47,40 @@ module.exports = {
     // ctx.response.body = result.data;
     // ctx.response.body
   },
+  createWxMenu:async(ctx)=>{
+    console.log('jin');
+
+   await Axios.post(
+      `https://api.weixin.qq.com/cgi-bin/menu/create?access_token=33_Ip0qPKB3cd4feoD-5ZkiHlKqaAb8EDCm7r-HLVuRPILCWAWgd47hvkIokHwZwfo5KUKDwTuDor_LrEmEXUyWpcgqJ4rg6xtKsDymzy8w9HcCuWcq-x-D4E0KqTgEeFCveS5rm0MXolhcMhNdYTDdADANIS`,
+      {
+        button: [
+          {
+            type: 'click',
+            name: '士大夫士大夫',
+            key: 'V1001_TODAY_MUSIC'
+          },
+          {
+            name: '水水水水',
+            sub_button: [
+              {
+                type: 'view',
+                name: '搜嘟嘟索',
+                url: 'http://www.soso.com/'
+              },
+              
+              {
+                type: 'click',
+                name: '顶顶顶顶',
+                key: 'V1001_GOOD'
+              }
+            ]
+          }
+        ]
+      }
+    ).then(response => {
+      console.log(response.data,2345);
+      
+      ctx.response.body = response.data;
+    });
+  }
 };

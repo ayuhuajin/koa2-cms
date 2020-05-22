@@ -79,6 +79,7 @@ module.exports = (app) =>{
   router.get('/list', demo.list);
   router.get('/index/:category/:title',demo.test);
   router.get('/wxtoken',demo.wxtoken); //微信获取token  openid
+  router.post('/createWxMenu',demo.createWxMenu); //创建微信自定义菜单
   
 
   // ****************************  用户与登录  **********************************//
