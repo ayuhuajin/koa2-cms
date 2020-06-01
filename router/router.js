@@ -8,6 +8,7 @@ const question = require('../controller/question');
 const user = require('../controller/user');
 const permission = require('../controller/permission');
 const demo = require('../controller/demo');
+const ali = require('../controller/ali');
 const fs = require('fs');
 const path = require('path');
 const koaBody = require('koa-body');
@@ -80,6 +81,9 @@ module.exports = (app) =>{
   router.get('/index/:category/:title',demo.test);
   router.get('/wxtoken',demo.wxtoken); //微信获取token  openid
   router.post('/createWxMenu',demo.createWxMenu); //创建微信自定义菜单
+
+  // ****************************  ali 当面付 **********************************//
+  router.post('/ali/createOrder',ali.createOrder);
   
 
   // ****************************  用户与登录  **********************************//
