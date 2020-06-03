@@ -5,17 +5,19 @@ const alipaySdk = new AlipaySdk({
   appId: '2021001164691594',
   // privateKey: fs.readFileSync('../config/private-key.pem', 'ascii'),
   privateKey: `-----BEGIN RSA PRIVATE KEY-----
-  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
+  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
   -----END RSA PRIVATE KEY-----`,
   signType:'RSA2',
   alipayPublicKey:`-----BEGIN PUBLIC KEY-----
-  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAigX3e/6hJSQSw/yzqWjp32PT9eVD0o2p6RTPyAaarN3pFcc7SmOYW863hy21P/PxS8Fv0EkdIT1F9QJnYj/XNU/79wZux9hMzH34lNbkBTx8W1xVIlB2AgKkMI/EVqL1L8g+ewkq3+ijtgKqoWZgOOaqn68jyXJuqezynFCshNQaKYczqN5ZplV8yIXfIgv3M4QRc4w3ByECpLtQhGDt/TbiPfzU4vxOHeXCIUbYOUycHc2ynUUzhIeCmL6T+y2x1vbGFDeTqOia/kcWVwrFmN2qe5Ss09AYq7IQNUi9LSEIYM9NKDBa7ymZOxiv1MtpFzf65mpKOmTJj7tZM+pYeQIDAQAB
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgn7+Yq67uXjrCkhNy5HDwaI8ENeUVCyOHGjNExAhOtrD5SZy/m4m7X+Ap4bv5Amfx8FcCrNznoTizU0VB0bPMhP7WbL7edBXV3yT4xhue87kTui58Ecb4B2Ovyy4h2KavGKdeveKceX8dPBiRhyj7RTtW0OeRXOVwBmdMJ3pI5+8FN8JUtp/+58VYvy216MciiXTIRsCWuACDH6JS9aOtARWJVSDiWOJJQvJf0QX2l0acB0qIzRYBDMY71asc1Og/GlormC7KLDTY+aDGLfEbE1Gf25RwUc/AXjAeIUpWI6aAwM/M5YKVD87cPWZ/GzHg1bF1iERyt5HxsjPi5C3CQIDAQAB
   -----END PUBLIC KEY-----`,
 });
 
 
 module.exports = {
   createOrder:async(ctx)=>{
+    console.log(ctx.request.body,9999);
+    
     // console.log(alipaySdk.exec(),56767);
     // const result = await alipaySdk.exec('alipay.system.oauth.token', {
     //   // 请求参数
@@ -46,15 +48,21 @@ module.exports = {
     //   },
     // });
     console.log(alipaySdk.exec,2342342342342349999999);
+    let {out_trade_no,subject,total_amount} = ctx.request.body;
     try{
       const result = await alipaySdk.exec('alipay.trade.precreate',{
-        tradeNo: '12321344353456',      // 必填 商户订单主键, 就是你要生成的
-        subject: '女装',      // 必填 商品概要
-        totalAmount: 0.5,    // 必填 多少钱
-        body: '黑丝吊带小蜡烛', // 可选 订单描述, 可以对交易或商品进行一个详细地描述，比如填写"购买商品2件共15.00元"
-        timeExpress: 5 
+        appId: '2021001164691594',
+        notifyUrl:'https://wulilang.com/ali/hai',
+        alipayPublicKey:`-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgn7+Yq67uXjrCkhNy5HDwaI8ENeUVCyOHGjNExAhOtrD5SZy/m4m7X+Ap4bv5Amfx8FcCrNznoTizU0VB0bPMhP7WbL7edBXV3yT4xhue87kTui58Ecb4B2Ovyy4h2KavGKdeveKceX8dPBiRhyj7RTtW0OeRXOVwBmdMJ3pI5+8FN8JUtp/+58VYvy216MciiXTIRsCWuACDH6JS9aOtARWJVSDiWOJJQvJf0QX2l0acB0qIzRYBDMY71asc1Og/GlormC7KLDTY+aDGLfEbE1Gf25RwUc/AXjAeIUpWI6aAwM/M5YKVD87cPWZ/GzHg1bF1iERyt5HxsjPi5C3CQIDAQAB
+        -----END PUBLIC KEY-----`,
+        bizContent:{
+          out_trade_no: out_trade_no,// 必填 商户订单主键, 就是你要生成的
+          subject: subject,      // 必填 商品概要
+          total_amount: total_amount,    // 必填 多少钱
+        }
       });
-      console.log(result);
+      ctx.body=result;
     } catch(err) {
       console.log(err,'失败');
     }
@@ -64,7 +72,7 @@ module.exports = {
     // 从官方文档看到，result 包含 tradeNo、outTradeNo 2 个 key
     // console.log('tradeNo: %s, outTradeNo: %s', result.tradeNo, result.outTradeNo);
       
-    ctx.body='index';
+    
   }
   
 };
