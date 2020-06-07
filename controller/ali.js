@@ -53,7 +53,7 @@ module.exports = {
       const result = await alipaySdk.exec('alipay.trade.precreate',{
         appId: '2021001164691594',
         notifyUrl:'https://wulilang.com/ali/hai',
-        return_url:'https://wulilang.com/ali/hai',
+        return_url:'http://www.baidu.com',
         notify_url:'https://wulilang.com/ali/hai',
         alipayPublicKey:`-----BEGIN PUBLIC KEY-----
         MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgn7+Yq67uXjrCkhNy5HDwaI8ENeUVCyOHGjNExAhOtrD5SZy/m4m7X+Ap4bv5Amfx8FcCrNznoTizU0VB0bPMhP7WbL7edBXV3yT4xhue87kTui58Ecb4B2Ovyy4h2KavGKdeveKceX8dPBiRhyj7RTtW0OeRXOVwBmdMJ3pI5+8FN8JUtp/+58VYvy216MciiXTIRsCWuACDH6JS9aOtARWJVSDiWOJJQvJf0QX2l0acB0qIzRYBDMY71asc1Og/GlormC7KLDTY+aDGLfEbE1Gf25RwUc/AXjAeIUpWI6aAwM/M5YKVD87cPWZ/GzHg1bF1iERyt5HxsjPi5C3CQIDAQAB
