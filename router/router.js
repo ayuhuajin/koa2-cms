@@ -84,6 +84,8 @@ module.exports = (app) =>{
 
   // ****************************  ali 当面付 **********************************//
   router.post('/ali/createOrder',ali.createOrder);
+  router.post('/orderSuccess',ali.orderSuccess);
+  router.get('/ali/queryOrder',ali.queryOrder);
   
 
   // ****************************  用户与登录  **********************************//

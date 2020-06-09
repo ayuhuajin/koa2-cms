@@ -1,4 +1,5 @@
 // const Axios = require('axios');
+const blog = require('../mongo/blog');
 const AlipaySdk = require('alipay-sdk').default;
 // const fs = require('fs');
 const alipaySdk = new AlipaySdk({
@@ -9,9 +10,10 @@ const alipaySdk = new AlipaySdk({
   -----END RSA PRIVATE KEY-----`,
   signType:'RSA2',
   alipayPublicKey:`-----BEGIN PUBLIC KEY-----
-  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgn7+Yq67uXjrCkhNy5HDwaI8ENeUVCyOHGjNExAhOtrD5SZy/m4m7X+Ap4bv5Amfx8FcCrNznoTizU0VB0bPMhP7WbL7edBXV3yT4xhue87kTui58Ecb4B2Ovyy4h2KavGKdeveKceX8dPBiRhyj7RTtW0OeRXOVwBmdMJ3pI5+8FN8JUtp/+58VYvy216MciiXTIRsCWuACDH6JS9aOtARWJVSDiWOJJQvJf0QX2l0acB0qIzRYBDMY71asc1Og/GlormC7KLDTY+aDGLfEbE1Gf25RwUc/AXjAeIUpWI6aAwM/M5YKVD87cPWZ/GzHg1bF1iERyt5HxsjPi5C3CQIDAQAB
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhdP1Ukzab0gOeSb7knf/qyhG6CRMoRtQ6edxcjwdcLS05rwfe+DZtvi6NIMhvedxMMzh7yTouTHX/K16BxvaolAsRJNeuMfgAzUGKRFskKq5FAGeyv99Rmkb+lPLcQU8fKjaihkN/PuYazmSse1f5Yer+DPFhdyfeLhBjAdpsEUeqQtSpS9b5Q7aHYSybCcdU5vWn1g990mjYbSbGUznNAJoWtxHNOCdLQoGtBXvhcT1rCEpa/sq6Y/TbHlnCa5eH09b+WzTvFXovA2urtJA3k0QC5TzYtDuJ10svyD87SQopmi8uNnSm0g8gITh2kcPdcVe6vWYmczzBixivVbbZQIDAQAB
   -----END PUBLIC KEY-----`,
 });
+  
 
 
 module.exports = {
@@ -52,11 +54,10 @@ module.exports = {
     try{
       const result = await alipaySdk.exec('alipay.trade.precreate',{
         appId: '2021001164691594',
-        notifyUrl:'https://wulilang.com/ali/hai',
-        return_url:'http://www.baidu.com',
-        notify_url:'https://wulilang.com/ali/hai',
+        return_url:'https://www.baidu.com',
+        notify_url:'https://api.wulilang.com/orderSuccess',
         alipayPublicKey:`-----BEGIN PUBLIC KEY-----
-        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgn7+Yq67uXjrCkhNy5HDwaI8ENeUVCyOHGjNExAhOtrD5SZy/m4m7X+Ap4bv5Amfx8FcCrNznoTizU0VB0bPMhP7WbL7edBXV3yT4xhue87kTui58Ecb4B2Ovyy4h2KavGKdeveKceX8dPBiRhyj7RTtW0OeRXOVwBmdMJ3pI5+8FN8JUtp/+58VYvy216MciiXTIRsCWuACDH6JS9aOtARWJVSDiWOJJQvJf0QX2l0acB0qIzRYBDMY71asc1Og/GlormC7KLDTY+aDGLfEbE1Gf25RwUc/AXjAeIUpWI6aAwM/M5YKVD87cPWZ/GzHg1bF1iERyt5HxsjPi5C3CQIDAQAB
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhdP1Ukzab0gOeSb7knf/qyhG6CRMoRtQ6edxcjwdcLS05rwfe+DZtvi6NIMhvedxMMzh7yTouTHX/K16BxvaolAsRJNeuMfgAzUGKRFskKq5FAGeyv99Rmkb+lPLcQU8fKjaihkN/PuYazmSse1f5Yer+DPFhdyfeLhBjAdpsEUeqQtSpS9b5Q7aHYSybCcdU5vWn1g990mjYbSbGUznNAJoWtxHNOCdLQoGtBXvhcT1rCEpa/sq6Y/TbHlnCa5eH09b+WzTvFXovA2urtJA3k0QC5TzYtDuJ10svyD87SQopmi8uNnSm0g8gITh2kcPdcVe6vWYmczzBixivVbbZQIDAQAB
         -----END PUBLIC KEY-----`,
         bizContent:{
           out_trade_no: out_trade_no,// 必填 商户订单主键, 就是你要生成的
@@ -75,6 +76,42 @@ module.exports = {
     // console.log('tradeNo: %s, outTradeNo: %s', result.tradeNo, result.outTradeNo);
       
     
+  },
+  orderSuccess:async(ctx)=>{
+    let title = '支付宝123';
+    let categoryId = 456885224;
+    let content = '4撒阿达收到按时';
+    let img = '';
+    let time = Date.now();
+    try{
+      await blog.create({'title':title,'categoryId':categoryId,'content':content,'img':img,'time':time});
+      ctx.response.body = '支付宝';
+    } catch(err) {
+      ctx.body = '出错';
+    }
+  },
+  // 查询订单
+  queryOrder:async(ctx)=>{
+    let id = ctx.query.id;
+    
+    try{
+
+      const result = await alipaySdk.exec('alipay.trade.query',{
+        appId: '2021001164691594',
+        out_trade_no: id,
+        alipayPublicKey:`-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhdP1Ukzab0gOeSb7knf/qyhG6CRMoRtQ6edxcjwdcLS05rwfe+DZtvi6NIMhvedxMMzh7yTouTHX/K16BxvaolAsRJNeuMfgAzUGKRFskKq5FAGeyv99Rmkb+lPLcQU8fKjaihkN/PuYazmSse1f5Yer+DPFhdyfeLhBjAdpsEUeqQtSpS9b5Q7aHYSybCcdU5vWn1g990mjYbSbGUznNAJoWtxHNOCdLQoGtBXvhcT1rCEpa/sq6Y/TbHlnCa5eH09b+WzTvFXovA2urtJA3k0QC5TzYtDuJ10svyD87SQopmi8uNnSm0g8gITh2kcPdcVe6vWYmczzBixivVbbZQIDAQAB
+        -----END PUBLIC KEY-----`,
+        bizContent:{
+          out_trade_no: id,// 必填 商户订单主键, 就是你要生成的
+        }
+        
+      });
+      ctx.response.body = 111;
+    } catch(err) {
+      console.log(err,'shibai');
+      
+    }
   }
   
 };
