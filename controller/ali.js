@@ -85,7 +85,7 @@ module.exports = {
     let time = Date.now();
     try{
       await blog.create({'title':title,'categoryId':categoryId,'content':content,'img':img,'time':time});
-      ctx.response.body = '支付宝';
+      ctx.response.body = 'success';
     } catch(err) {
       ctx.body = '出错';
     }
@@ -93,9 +93,7 @@ module.exports = {
   // 查询订单
   queryOrder:async(ctx)=>{
     let id = ctx.query.id;
-    
     try{
-
       const result = await alipaySdk.exec('alipay.trade.query',{
         appId: '2021001164691594',
         out_trade_no: id,
@@ -105,12 +103,10 @@ module.exports = {
         bizContent:{
           out_trade_no: id,// 必填 商户订单主键, 就是你要生成的
         }
-        
       });
-      ctx.response.body = 111;
+      ctx.response.body = result;
     } catch(err) {
       console.log(err,'shibai');
-      
     }
   }
   
