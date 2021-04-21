@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('koa-bodyparser');
 const router = require('./router/router.js');
 const koajwt = require('koa-jwt');
-const cors = require('koa2-cors');
+const cors =require('koa2-cors');
 require('./utils/mongo');
 
 const app = new Koa();
