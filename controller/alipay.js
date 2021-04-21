@@ -6,11 +6,11 @@ const alipaySdk = new AlipaySdk({
   appId: '2016102400749295',
   // privateKey: fs.readFileSync('../config/private-key.pem', 'ascii'),
   privateKey: `-----BEGIN RSA PRIVATE KEY-----
-  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
+  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
   -----END RSA PRIVATE KEY-----`,
   signType:'RSA2',
   alipayPublicKey:`-----BEGIN PUBLIC KEY-----
-  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg25Xx827CSnACTTdnspmORd/WVHWWYbZSLpVavukkG4/1bHRyx06yxnShX4+ECdHxgQCcI75V+xsdmUZN7mzJp91VcxsjPg1jRCnxmlHu4oity/YXfbQmFS3aTJSaQlupy2mhv4rT+M3OiBLILoRBZnLPPB2mobSC1tpB235krbkKbD+2ajDxElfLAKT/E3yILIhIH/GI8Z/WvOFGR7uj3QRtuYDFLZdjkAqdeMkowjPczS7iwZY2/D1RZGtgKnuNMa5w/87Dotni050fRBLfkuq00TRC6DEM87bmr/zoH2Wbax8mY1WJ9F0GBm5WqcgPu3A2xs/ADLFCCFAG8oYgwIDAQAB
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs33ngvlX9xYvKuqq9gTj658CNFF/ydwhdrzb0UlA/3DFq6PBei3I0GGmLYeYTQM9JoCG1cT8LCQ0J1iOlUpspCA4LOBMY1hMWXzn0wF7FaVwneL9Ko3x6rxRA8m/i3yZYVpPgHX0luWSQLkwgAl/frPTCilL3fl+73EaylyCCXzPNfkeOJoj1YbRVPpwBhORPpPeDHVMRo/nz++QgP3OsWHrQOI/fMSjULzI+saGfXhcreuP2DOl2VBDvLHuZgxfdRT5ndr94JNxQeLHIII5tTrr/eBCgv8t31QpPcUfvK8XoctycYKQ/63tcY3l7LfbF1mMEjSRMLQk+tSl0Gwn0QIDAQAB
   -----END PUBLIC KEY-----`,
 });
 
@@ -19,18 +19,22 @@ const alipaySdk = new AlipaySdk({
 module.exports = {
   createOrder:async(ctx)=>{
     let {out_trade_no,subject,total_amount} = ctx.request.body;
+    console.log(4446556,out_trade_no,subject,total_amount);
     try{
-      const result = await alipaySdk.exec('alipay.trade.precreate',{
+      // alipay.trade.wap.pay
+      const result = await alipaySdk.exec('alipay.trade.wap.pay',{
         appId: '2016102400749295',
         return_url:'https://www.baidu.com',
         notify_url:'https://api.wulilang.com/orderSuccess',
         alipayPublicKey:`-----BEGIN PUBLIC KEY-----
-        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg25Xx827CSnACTTdnspmORd/WVHWWYbZSLpVavukkG4/1bHRyx06yxnShX4+ECdHxgQCcI75V+xsdmUZN7mzJp91VcxsjPg1jRCnxmlHu4oity/YXfbQmFS3aTJSaQlupy2mhv4rT+M3OiBLILoRBZnLPPB2mobSC1tpB235krbkKbD+2ajDxElfLAKT/E3yILIhIH/GI8Z/WvOFGR7uj3QRtuYDFLZdjkAqdeMkowjPczS7iwZY2/D1RZGtgKnuNMa5w/87Dotni050fRBLfkuq00TRC6DEM87bmr/zoH2Wbax8mY1WJ9F0GBm5WqcgPu3A2xs/ADLFCCFAG8oYgwIDAQAB
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs33ngvlX9xYvKuqq9gTj658CNFF/ydwhdrzb0UlA/3DFq6PBei3I0GGmLYeYTQM9JoCG1cT8LCQ0J1iOlUpspCA4LOBMY1hMWXzn0wF7FaVwneL9Ko3x6rxRA8m/i3yZYVpPgHX0luWSQLkwgAl/frPTCilL3fl+73EaylyCCXzPNfkeOJoj1YbRVPpwBhORPpPeDHVMRo/nz++QgP3OsWHrQOI/fMSjULzI+saGfXhcreuP2DOl2VBDvLHuZgxfdRT5ndr94JNxQeLHIII5tTrr/eBCgv8t31QpPcUfvK8XoctycYKQ/63tcY3l7LfbF1mMEjSRMLQk+tSl0Gwn0QIDAQAB
         -----END PUBLIC KEY-----`,
         bizContent:{
           out_trade_no: out_trade_no,// 必填 商户订单主键, 就是你要生成的
           subject: subject,      // 必填 商品概要
           total_amount: total_amount,    // 必填 多少钱
+          quit_url:'https://www.baidu.com',
+          product_code:'QUICK_WAP_PAY'
         }
       });
       ctx.body=result;
