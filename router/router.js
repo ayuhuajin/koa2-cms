@@ -9,6 +9,7 @@ const user = require('../controller/user');
 const permission = require('../controller/permission');
 const demo = require('../controller/demo');
 const ali = require('../controller/ali');
+const aliPay = require('../controller/aliPay');
 const fs = require('fs');
 const path = require('path');
 const koaBody = require('koa-body');
@@ -36,15 +37,15 @@ module.exports = (app) =>{
         console.log(`name: ${name}`);
         console.log(file);
         // fs.mkdirSync('uploa44444d');
-       
-        
+
+
       },
     }
   }),async(ctx) => {
     const file = ctx.request.files.file; // 上传的文件在ctx.request.files.file
     // 创建可读流
     console.log(ctx.request,78);
-    
+
     const reader = fs.createReadStream(file.path);
     // 修改文件的名称
     // var myDate = new Date();
@@ -57,8 +58,8 @@ module.exports = (app) =>{
       fs.mkdirSync(targetPath); // 没有就创建
     }
     file.path = `${targetPath}/${file.name}`;
-    
-    
+
+
     // if (!fs.existsSync(targetPath)) { // 检查是否有“public/upload/”文件夹
     //   fs.mkdirSync(targetPath); // 没有就创建
     // }
@@ -86,7 +87,12 @@ module.exports = (app) =>{
   router.post('/ali/createOrder',ali.createOrder);
   router.post('/orderSuccess',ali.orderSuccess);
   router.get('/ali/queryOrder',ali.queryOrder);
-  
+
+  // ****************************  ali 当面付 **********************************//
+  router.post('/aliPay/createOrder',aliPay.createOrder);
+  router.post('/aliPay/orderSuccess',aliPay.orderSuccess);
+  router.get('/aliPay/queryOrder',aliPay.queryOrder);
+
 
   // ****************************  用户与登录  **********************************//
   router.post('/login',user.login);
@@ -155,7 +161,7 @@ module.exports = (app) =>{
   router.post('/question/updateQuestion',question.updateQuestion);
   router.get('/question/questionView',question.questionView);
 
- 
+
   app.use(router.routes());   /*启动路由*/
   app.use(router.allowedMethods());
 };
