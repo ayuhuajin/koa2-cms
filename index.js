@@ -42,4 +42,28 @@ app.use(koajwt({
 router(app);
 
 app.listen(12306);
+// const server = require('http').createServer(app.callback())
+// const io = require('socket.io')(server)
+// //实时通讯的连接
+// io.on("connection",function(socket){
+//   //客户端发送过来的数据
+//   socket.emit('news',{hello:'world'});
+//   //监听客户端发送的内容
+//   socket.on('my other event',function (data) {
+//       console.log(data)
+//   })
+// })
+var ws = require("nodejs-websocket");
+var server1 = ws.createServer(function(conn){
+  conn.on("text", function (str) {
+      console.log("收到的信息为:"+str)
+      conn.sendText(str+1111)
+  })
+  conn.on("close", function (code, reason) {
+      console.log("关闭连接")
+  });
+  conn.on("error", function (code, reason) {
+      console.log("异常关闭")
+  });
+}).listen(11223)
 console.log('[demo] start-quick is starting at port 12306');
