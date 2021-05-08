@@ -55,9 +55,18 @@ app.listen(12306);
 // })
 var ws = require("nodejs-websocket");
 var server1 = ws.createServer(function(conn){
+  conn.on("connect", function (str) {
+    console.log("收到:"+str)
+    conn.sendText("有人加入了")
+  })
   conn.on("text", function (str) {
       console.log("收到的信息为:"+str)
-      conn.sendText(str+1111)
+      conn.sendText(Math.random().toString())
+      borcat()
+      // setInterval(()=>{
+      //   console.log(8888);
+      //   conn.sendText(99)
+      // },1000)
   })
   conn.on("close", function (code, reason) {
       console.log("关闭连接")
@@ -66,4 +75,10 @@ var server1 = ws.createServer(function(conn){
       console.log("异常关闭")
   });
 }).listen(11223)
+function borcat(){
+  server1.connections.forEach(function (conn) {
+    conn.sendText('2222')
+  })
+}
+
 console.log('[demo] start-quick is starting at port 12306');
