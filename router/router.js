@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const category = require('../controller/category');
 const toolType = require('../controller/toolType');
 const blog = require('../controller/blog');
+const shop = require('../controller/shop');
 const tools = require('../controller/tools');
 const exam = require('../controller/exam');
 const question = require('../controller/question');
@@ -160,6 +161,13 @@ module.exports = (app) =>{
   router.post('/question/delQuestion',question.delQuestion);
   router.post('/question/updateQuestion',question.updateQuestion);
   router.get('/question/questionView',question.questionView);
+
+   // ****************************  商品,增,删,改,查  **********************************//
+   router.get('/shop/shopList',shop.shopList);
+   router.post('/shop/addShop',shop.addShop);
+   router.post('/shop/delShop',shop.delShop);
+   router.post('/shop/updateShop',shop.updateShop);
+   router.get('/shop/shopView',shop.shopView);
 
 
   app.use(router.routes());   /*启动路由*/
