@@ -68,20 +68,20 @@ module.exports={
     }
   },
   // 修改联系人
-  // updateContact:async(ctx)=>{
-  //   let item = ctx.request.body;
-  //   let id = ctx.request.body._id || '';
-  //   // let title = ctx.request.body.title||'';
-  //   // let categoryId = ctx.request.body.categoryId||'';
-  //   // let content = ctx.request.body.content||'';
-  //   // let img = ctx.request.body.img||'';
-  //   var conditions = {'_id' : id};
-  //   var update = {$set : {name:item.name,nickName:item.nickName,phone:item.phone,wechat:item.wechat,addr:item.addr,province:item.province,county:item.county,city:item.city,type:item.type,desc:item.desc,content:item.content,isAddContactWX:item.isAddContactWX}};
-  //   try{
-  //     await contact.update(conditions, update);
-  //     ctx.response.body = '编辑成功';
-  //   }catch(err){
-  //     ctx.response.body='编辑出错';
-  //   }
-  // },
+  updateContact:async(ctx)=>{
+    let item = ctx.request.body;
+    let id = ctx.request.body._id || '';
+    // let title = ctx.request.body.title||'';
+    // let categoryId = ctx.request.body.categoryId||'';
+    // let content = ctx.request.body.content||'';
+    // let img = ctx.request.body.img||'';
+    var conditions = {'_id' : id};
+    var update = {$set : {name:item.name,nickName:item.nickName,phone:item.phone,wechat:item.wechat,addr:item.addr,province:item.province,county:item.county,city:item.city,type:item.type,desc:item.desc,content:item.content,isAddContactWX:item.isAddContactWX}};
+    try{
+      await contact.update(conditions, update);
+      ctx.response.body = '编辑成功';
+    }catch(err){
+      ctx.response.body='编辑出错';
+    }
+  },
 };

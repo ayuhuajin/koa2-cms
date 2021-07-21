@@ -174,7 +174,7 @@ module.exports = (app) =>{
    router.get('/contact/contactList',contact.contactList);
    router.post('/contact/addContact',contact.addContact);
    router.post('/contact/delContact',contact.delContact);
-  //  router.post('/contact/updateContact',contact.updateContact);
+   router.post('/contact/updateContact',contact.updateContact);
   //  router.get('/shop/shopView',shop.shopView);
 
 
