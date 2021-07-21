@@ -3,6 +3,7 @@ const category = require('../controller/category');
 const toolType = require('../controller/toolType');
 const blog = require('../controller/blog');
 const shop = require('../controller/shop');
+const contact = require('../controller/contact');
 const tools = require('../controller/tools');
 const exam = require('../controller/exam');
 const question = require('../controller/question');
@@ -168,6 +169,13 @@ module.exports = (app) =>{
    router.post('/shop/delShop',shop.delShop);
    router.post('/shop/updateShop',shop.updateShop);
    router.get('/shop/shopView',shop.shopView);
+
+   // ****************************  联系列表,增,删,改,查  **********************************//
+   router.get('/contact/contactList',contact.contactList);
+   router.post('/contact/addContact',contact.addContact);
+   router.post('/contact/delContact',contact.delContact);
+  //  router.post('/contact/updateContact',contact.updateContact);
+  //  router.get('/shop/shopView',shop.shopView);
 
 
   app.use(router.routes());   /*启动路由*/
