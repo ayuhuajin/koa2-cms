@@ -1,7 +1,7 @@
 const shop = require('../mongo/shop');
 
 module.exports={
-  //博客列表
+  //商品列表
   shopList:async(ctx)=>{
     let total,result;
     let limit =ctx.query.pageSize||10;
@@ -44,19 +44,18 @@ module.exports={
   },
   // 添加博客
   addShop:async(ctx)=>{
-    let title = ctx.request.body.title||'';
-    let categoryId = ctx.request.body.categoryId||'';
+    let shopName = ctx.request.body.shopName||'';
     let content = ctx.request.body.content||'';
     let img = ctx.request.body.img||'';
     let time = Date.now();
     try{
-      await shop.create({'title':title,'categoryId':categoryId,'content':content,'img':img,'time':time});
-      ctx.response.body = '成功博客添加';
+      await shop.create({'shopName':shopName,'content':content,'img':img,'time':time});
+      ctx.response.body = '成功添加商品';
     } catch(err) {
       ctx.body = '出错';
     }
   },
-  // 删除博客
+  // 删除商品
   delShop:async(ctx)=>{
     let id = ctx.request.body.id;
     try{
@@ -69,12 +68,11 @@ module.exports={
   // 修改博客
   updateShop:async(ctx)=>{
     let id = ctx.request.body.id || '';
-    let title = ctx.request.body.title||'';
-    let categoryId = ctx.request.body.categoryId||'';
+    let shopName = ctx.request.body.shopName||'';
     let content = ctx.request.body.content||'';
     let img = ctx.request.body.img||'';
     var conditions = {'_id' : id};
-    var update = {$set : { 'title' : title,'categoryId' : categoryId,'content' : content,'img' : img,}};
+    var update = {$set : { 'shopName' : shopName,'content' : content,'img' : img,}};
     try{
       await shop.update(conditions, update);
       ctx.response.body = '编辑成功';
