@@ -42,14 +42,15 @@ module.exports={
       data:result
     };
   },
-  // 添加博客
+  // 添加商品
   addShop:async(ctx)=>{
     let shopName = ctx.request.body.shopName||'';
+    let shopSecret = ctx.request.body.shopSecret||'';
     let content = ctx.request.body.content||'';
     let img = ctx.request.body.img||'';
     let time = Date.now();
     try{
-      await shop.create({'shopName':shopName,'content':content,'img':img,'time':time});
+      await shop.create({'shopName':shopName,'content':content,shopSecret:shopSecret,'img':img,'time':time});
       ctx.response.body = '成功添加商品';
     } catch(err) {
       ctx.body = '出错';
@@ -70,9 +71,10 @@ module.exports={
     let id = ctx.request.body.id || '';
     let shopName = ctx.request.body.shopName||'';
     let content = ctx.request.body.content||'';
+    let shopSecret = ctx.request.body.shopSecret||'';
     let img = ctx.request.body.img||'';
     var conditions = {'_id' : id};
-    var update = {$set : { 'shopName' : shopName,'content' : content,'img' : img,}};
+    var update = {$set : { 'shopName' : shopName,shopSecret:shopSecret,'content' : content,'img' : img,}};
     try{
       await shop.update(conditions, update);
       ctx.response.body = '编辑成功';
