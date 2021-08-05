@@ -50,10 +50,12 @@ module.exports={
     let shopSecret = ctx.request.body.shopSecret||'';
     let content = ctx.request.body.content||'';
     let img = ctx.request.body.img||'';
+    let payMoney = ctx.request.body.payMoney||'';
+
     let time = Date.now();
     let secret = md5(123 + shopSecret + 123);
     try{
-      await shop.create({'shopName':shopName,'content':content,shopSecret:shopSecret,secret:secret,'img':img,'time':time});
+      await shop.create({'shopName':shopName,'content':content,shopSecret:shopSecret,secret:secret,payMoney:payMoney,'img':img,'time':time});
       ctx.response.body = '成功添加商品';
     } catch(err) {
       ctx.body = '出错';
@@ -75,10 +77,12 @@ module.exports={
     let shopName = ctx.request.body.shopName||'';
     let content = ctx.request.body.content||'';
     let shopSecret = ctx.request.body.shopSecret||'';
+    let payMoney = ctx.request.body.payMoney||'';
+
     let img = ctx.request.body.img||'';
     var conditions = {'_id' : id};
     let secret = md5(123 + shopSecret + 123);  //对商品密钥进行加密
-    var update = {$set : { 'shopName' : shopName,shopSecret:shopSecret,secret:secret,'content' : content,'img' : img,}};
+    var update = {$set : { 'shopName' : shopName,shopSecret:shopSecret,secret:secret,'content' : content,payMoney:payMoney,'img' : img,}};
     try{
       await shop.update(conditions, update);
       ctx.response.body = '编辑成功';
