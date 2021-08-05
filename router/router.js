@@ -178,6 +178,7 @@ module.exports = (app) =>{
    router.post('/shop/delShop',shop.delShop);
    router.post('/shop/updateShop',shop.updateShop);
    router.get('/shop/shopView',shop.shopView);
+   router.get('/shop/getshopView',shop.getshopView);
 
    // ****************************  联系列表,增,删,改,查  **********************************//
    router.get('/contact/contactList',contact.contactList);

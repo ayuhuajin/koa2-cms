@@ -5,7 +5,8 @@ let ShopScheme = new mongoose.Schema({
   img:String,
   content:String,  // 商品内容
   categoryId:String,
-  shopSecret: String, // 商品密钥
+  shopSecret: String, // 商品原始密钥
+  secret:String, //商品加密密钥
   onTrial: { type:Boolean, default:false }, // 是否试用
   isPurchase: { type:Boolean, default:false }, // 是否购买
   isWechatFriend: { type:Boolean, default:false }, // 是否微信好友
