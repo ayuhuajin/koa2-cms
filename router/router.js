@@ -28,11 +28,11 @@ module.exports = (app) =>{
   });
 
   // 上传文件接口;
-  router.post('/upload', koaBody({
+  router.post(`/upload/:type`, koaBody({
     multipart: true, // 支持文件上传
     encoding: 'gzip',
     formidable: {
-      uploadDir: path.join(__dirname, '../static'), // 设置文件上传目录
+      uploadDir: path.join(__dirname, `../static/img`), // 设置文件上传目录
       keepExtensions: true, // 保持文件的后缀
       maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
       onFileBegin: (name, file) => { // 文件上传前的设置
@@ -45,16 +45,25 @@ module.exports = (app) =>{
     }
   }),async(ctx) => {
     const file = ctx.request.files.file; // 上传的文件在ctx.request.files.file
+    // console.log(file,2342342342423);
+    // let addr = __dirname+ `/static/upload_b28ddd142ed7e2341d18d935236841d9.png`;
+    // fs.unlinkSync(addr);
     // 创建可读流
-    console.log(ctx.request,78);
-
+    // console.log(ctx.request,78);
+    let dirName = ctx.request.url.split('/')[2];
+    if(dirName ==2) {
+      dirName = 'shop';
+    } else {
+      dirName = 'upload';
+    }
+    console.log(dirName,678687686);
     const reader = fs.createReadStream(file.path);
     // 修改文件的名称
     // var myDate = new Date();
     // var newFilename = file.name.split('.')[0] + '_' + myDate.getTime() + '.' + file.name.split('.')[1];
     // var targetPath = path.join(__dirname, `../static`) + `/${file.name}`;
     // console.log(targetPath,678);
-    var targetPath = path.join(__dirname, `../static/12314`);
+    var targetPath = path.join(__dirname, `../static/${dirName}`);
     console.log(path);
     if (!fs.existsSync(targetPath)) { // 检查是否有“public/upload/”文件夹
       fs.mkdirSync(targetPath); // 没有就创建
@@ -74,7 +83,7 @@ module.exports = (app) =>{
     return ctx.body = {
       code: 200,
       data: {
-        url: 'http://' + ctx.headers.host  +'/'+ file.name
+        url: 'http://' + ctx.headers.host +'/'+ dirName +'/'+ file.name
       }
     };
   });
