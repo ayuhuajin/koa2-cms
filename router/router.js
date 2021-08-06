@@ -3,6 +3,7 @@ const category = require('../controller/category');
 const toolType = require('../controller/toolType');
 const blog = require('../controller/blog');
 const shop = require('../controller/shop');
+const order = require('../controller/order');
 const contact = require('../controller/contact');
 const tools = require('../controller/tools');
 const exam = require('../controller/exam');
@@ -105,6 +106,13 @@ module.exports = (app) =>{
   router.post('/aliPay/createOrder',aliPay.createOrder);
   router.post('/aliPay/orderSuccess',aliPay.orderSuccess);
   router.get('/aliPay/queryOrder',aliPay.queryOrder);
+
+
+  // ****************************  oreder 订单 **********************************//
+  router.get('/order/orderList',order.orderList);
+  router.post('/order/addOrder',order.addOrder);
+  router.post('/order/delOrder',order.delOrder);
+
 
 
   // ****************************  用户与登录  **********************************//
