@@ -13,13 +13,13 @@ const alipaySdk = new AlipaySdk({
   MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhdP1Ukzab0gOeSb7knf/qyhG6CRMoRtQ6edxcjwdcLS05rwfe+DZtvi6NIMhvedxMMzh7yTouTHX/K16BxvaolAsRJNeuMfgAzUGKRFskKq5FAGeyv99Rmkb+lPLcQU8fKjaihkN/PuYazmSse1f5Yer+DPFhdyfeLhBjAdpsEUeqQtSpS9b5Q7aHYSybCcdU5vWn1g990mjYbSbGUznNAJoWtxHNOCdLQoGtBXvhcT1rCEpa/sq6Y/TbHlnCa5eH09b+WzTvFXovA2urtJA3k0QC5TzYtDuJ10svyD87SQopmi8uNnSm0g8gITh2kcPdcVe6vWYmczzBixivVbbZQIDAQAB
   -----END PUBLIC KEY-----`,
 });
-  
+
 
 
 module.exports = {
   createOrder:async(ctx)=>{
     console.log(ctx.request.body,9999);
-    
+
     // console.log(alipaySdk.exec(),56767);
     // const result = await alipaySdk.exec('alipay.system.oauth.token', {
     //   // 请求参数
@@ -27,7 +27,7 @@ module.exports = {
     //   code: 'code',
     //   refreshToken: 'token'
     // });
-    
+
     // result 为 API 介绍内容中 “响应参数” 对应的结果
     // console.log(result);
 
@@ -69,13 +69,13 @@ module.exports = {
     } catch(err) {
       console.log(err,'失败');
     }
-    
-    
-    
+
+
+
     // 从官方文档看到，result 包含 tradeNo、outTradeNo 2 个 key
     // console.log('tradeNo: %s, outTradeNo: %s', result.tradeNo, result.outTradeNo);
-      
-    
+
+
   },
   orderSuccess:async(ctx)=>{
     let title = '支付宝123';
@@ -108,6 +108,30 @@ module.exports = {
     } catch(err) {
       console.log(err,'shibai');
     }
-  }
-  
+  },
+  createH5Order:async(ctx)=>{
+    console.log(alipaySdk.exec,2342);
+    let {out_trade_no,subject,total_amount} = ctx.request.body;
+    try{
+      const result = await alipaySdk.exec('alipay.trade.create',{
+        appId: '2021001164691594',
+        return_url:'https://www.baidu.com',
+        notify_url:'https://api.wulilang.com/orderSuccess',
+        alipayPublicKey:`-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhdP1Ukzab0gOeSb7knf/qyhG6CRMoRtQ6edxcjwdcLS05rwfe+DZtvi6NIMhvedxMMzh7yTouTHX/K16BxvaolAsRJNeuMfgAzUGKRFskKq5FAGeyv99Rmkb+lPLcQU8fKjaihkN/PuYazmSse1f5Yer+DPFhdyfeLhBjAdpsEUeqQtSpS9b5Q7aHYSybCcdU5vWn1g990mjYbSbGUznNAJoWtxHNOCdLQoGtBXvhcT1rCEpa/sq6Y/TbHlnCa5eH09b+WzTvFXovA2urtJA3k0QC5TzYtDuJ10svyD87SQopmi8uNnSm0g8gITh2kcPdcVe6vWYmczzBixivVbbZQIDAQAB
+        -----END PUBLIC KEY-----`,
+        bizContent:{
+          out_trade_no: out_trade_no,// 必填 商户订单主键, 就是你要生成的
+          subject: subject,      // 必填 商品概要
+          total_amount: total_amount,    // 必填 多少钱
+          buyer_id: '',
+          buyer_logon_id:'1311094...' //支付宝账号
+        }
+      });
+      ctx.body=result;
+    } catch(err) {
+      console.log(err,'失败');
+    }
+  },
+
 };
