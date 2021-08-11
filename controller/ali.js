@@ -1,5 +1,6 @@
 // const Axios = require('axios');
 const blog = require('../mongo/blog');
+const order = require('../mongo/order');
 const AlipaySdk = require('alipay-sdk').default;
 // const fs = require('fs');
 const alipaySdk = new AlipaySdk({
@@ -65,6 +66,7 @@ module.exports = {
           total_amount: total_amount,    // 必填 多少钱
         }
       });
+      await order.create({'orderId':out_trade_no,'shopName':subject,'payMoney':total_amount});
       ctx.body=result;
     } catch(err) {
       console.log(err,'失败');
@@ -92,6 +94,7 @@ module.exports = {
   },
   // 查询订单
   queryOrder:async(ctx)=>{
+    console.log(333);
     let id = ctx.query.id;
     try{
       const result = await alipaySdk.exec('alipay.trade.query',{
@@ -104,6 +107,7 @@ module.exports = {
           out_trade_no: id,// 必填 商户订单主键, 就是你要生成的
         }
       });
+      console.log(result,6789);
       ctx.response.body = result;
     } catch(err) {
       console.log(err,'shibai');
@@ -133,5 +137,48 @@ module.exports = {
       console.log(err,'失败');
     }
   },
-
+  // 撤销订单
+  revokeOrder:async(ctx)=>{
+    let {out_trade_no} = ctx.request.body;
+    try{
+      const result = await alipaySdk.exec('alipay.trade.cancel',{
+        appId: '2021001164691594',
+        return_url:'https://www.baidu.com',
+        notify_url:'https://api.wulilang.com/orderSuccess',
+        alipayPublicKey:`-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhdP1Ukzab0gOeSb7knf/qyhG6CRMoRtQ6edxcjwdcLS05rwfe+DZtvi6NIMhvedxMMzh7yTouTHX/K16BxvaolAsRJNeuMfgAzUGKRFskKq5FAGeyv99Rmkb+lPLcQU8fKjaihkN/PuYazmSse1f5Yer+DPFhdyfeLhBjAdpsEUeqQtSpS9b5Q7aHYSybCcdU5vWn1g990mjYbSbGUznNAJoWtxHNOCdLQoGtBXvhcT1rCEpa/sq6Y/TbHlnCa5eH09b+WzTvFXovA2urtJA3k0QC5TzYtDuJ10svyD87SQopmi8uNnSm0g8gITh2kcPdcVe6vWYmczzBixivVbbZQIDAQAB
+        -----END PUBLIC KEY-----`,
+        bizContent:{
+          out_trade_no: out_trade_no,// 必填 商户订单主键, 就是你要生成的
+          // subject: subject,      // 必填 商品概要
+          // total_amount: total_amount,    // 必填 多少钱
+        }
+      });
+      ctx.body=result;
+    } catch(err) {
+      console.log(err,'失败');
+    }
+  },
+  // 订单退款
+  refundOrder:async(ctx)=>{
+    let {out_trade_no,total_amount} = ctx.request.body;
+    try{
+      const result = await alipaySdk.exec('alipay.trade.cancel',{
+        appId: '2021001164691594',
+        return_url:'https://www.baidu.com',
+        notify_url:'https://api.wulilang.com/orderSuccess',
+        alipayPublicKey:`-----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhdP1Ukzab0gOeSb7knf/qyhG6CRMoRtQ6edxcjwdcLS05rwfe+DZtvi6NIMhvedxMMzh7yTouTHX/K16BxvaolAsRJNeuMfgAzUGKRFskKq5FAGeyv99Rmkb+lPLcQU8fKjaihkN/PuYazmSse1f5Yer+DPFhdyfeLhBjAdpsEUeqQtSpS9b5Q7aHYSybCcdU5vWn1g990mjYbSbGUznNAJoWtxHNOCdLQoGtBXvhcT1rCEpa/sq6Y/TbHlnCa5eH09b+WzTvFXovA2urtJA3k0QC5TzYtDuJ10svyD87SQopmi8uNnSm0g8gITh2kcPdcVe6vWYmczzBixivVbbZQIDAQAB
+        -----END PUBLIC KEY-----`,
+        bizContent:{
+          out_trade_no: out_trade_no,// 必填 商户订单主键, 就是你要生成的
+          // subject: subject,      // 必填 商品概要
+          refund_amount: total_amount,    // 必填 多少钱
+        }
+      });
+      ctx.body=result;
+    } catch(err) {
+      console.log(err,'失败');
+    }
+  },
 };
