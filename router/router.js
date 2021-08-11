@@ -12,7 +12,7 @@ const user = require('../controller/user');
 const permission = require('../controller/permission');
 const demo = require('../controller/demo');
 const ali = require('../controller/ali');
-const aliPay = require('../controller/aliPay');
+// const aliPay = require('../controller/aliPay');
 const fs = require('fs');
 const path = require('path');
 const koaBody = require('koa-body');
@@ -105,9 +105,9 @@ module.exports = (app) =>{
 
 
   // ****************************  ali 支付 **********************************//
-  router.post('/aliPay/createOrder',aliPay.createOrder);
-  router.post('/aliPay/orderSuccess',aliPay.orderSuccess);
-  router.get('/aliPay/queryOrder',aliPay.queryOrder);
+  // router.post('/aliPay/createOrder',aliPay.createOrder);
+  // router.post('/aliPay/orderSuccess',aliPay.orderSuccess);
+  // router.get('/aliPay/queryOrder',aliPay.queryOrder);
 
 
   // ****************************  oreder 订单 **********************************//
