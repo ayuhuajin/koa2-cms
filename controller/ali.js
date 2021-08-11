@@ -79,14 +79,12 @@ module.exports = {
 
 
   },
+  // 订单付款成功后，，阿里请求本接口，
   orderSuccess:async(ctx)=>{
-    let title = '支付宝123';
-    let categoryId = 456885224;
-    let content = '4撒阿达收到按时';
-    let img = '';
+    let {subject,out_trade_no,trade_status,trade_no, buyer_id,buyer_logon_id, buyer_pay_amount} = ctx.request.body;
     let time = Date.now();
     try{
-      await blog.create({'title':title,'categoryId':categoryId,'content':content,'img':img,'time':time});
+      await order.create({shopName:subject,payMoney:buyer_pay_amount,orderId:out_trade_no,trade_status:trade_status,trade_no:trade_no,buyer_id:buyer_id,buyer_logon_id:buyer_logon_id,time:time });
       ctx.response.body = 'success';
     } catch(err) {
       ctx.body = '出错';
