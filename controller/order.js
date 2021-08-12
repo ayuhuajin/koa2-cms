@@ -6,16 +6,21 @@ module.exports={
     let total,result;
     let limit =ctx.query.pageSize||10;
     let currentPage =ctx.query.pageNumber||1;
-    let categoryId =ctx.query.categoryId||'';
+    let orderId =ctx.query.orderId||'';
+    let status =ctx.query.status||'';
+    let date =ctx.query.date||'';
+    console.log(orderId);
     let name = ctx.query.name;
-    if(!name && !categoryId) {
+    if(!name && !orderId&&!status&&!date) {
       total = await order.find({});
       result = await order.find({}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     } else {
       var queryName= new RegExp(name, 'i');//模糊查询参数
-      var queryCategoryId= new RegExp(categoryId, 'i');//模糊查询参数
-      total = await order.find({$or:[{'title': queryName}],'categoryId':queryCategoryId});
-      result = await order.find({$or:[{'title': queryName}],'categoryId':queryCategoryId}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+      var queryOrderId= new RegExp(orderId, 'i');//模糊查询参数
+      var queryStatus= new RegExp(status, 'i');//模糊查询参数
+      var queryDate= new RegExp(date, 'i');//模糊查询参数
+      total = await order.find({$or:[{'shopName': queryName}],'orderId':queryOrderId,'status':queryStatus,'date':queryDate});
+      result = await order.find({$or:[{'shopName': queryName}],'orderId':queryOrderId,'status':queryStatus,'date':queryDate}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     }
     ctx.response.body = {
       total:total.length,
