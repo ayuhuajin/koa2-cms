@@ -84,7 +84,20 @@ module.exports = {
     let {subject,out_trade_no,trade_status,trade_no, buyer_id,buyer_logon_id, buyer_pay_amount} = ctx.request.body;
     let time = Date.now();
     try{
-      await order.create({shopName:subject,payMoney:buyer_pay_amount,orderId:out_trade_no,trade_status:trade_status,trade_no:trade_no,buyer_id:buyer_id,buyer_logon_id:buyer_logon_id,time:time });
+      let result = await order.find({'orderId':out_trade_no});
+      let id = result[0]._id;
+      var conditions = {'_id' : id};
+      let status = '';
+      if(trade_status =='TRADE_SUCCESS') {
+        status = '已付款';
+      } else {
+        status = '未付款';
+      }
+      var update = {$set : {shopName:subject,payMoney:buyer_pay_amount,orderId:out_trade_no,trade_status:trade_status,status:status,trade_no:trade_no,buyer_id:buyer_id,buyer_logon_id:buyer_logon_id,time:time }};
+      if(trade_status =='TRADE_SUCCESS') {
+        await order.update(conditions, update);
+      }
+      // await order.create({shopName:subject,payMoney:buyer_pay_amount,orderId:out_trade_no,trade_status:trade_status,trade_no:trade_no,buyer_id:buyer_id,buyer_logon_id:buyer_logon_id,time:time });
       ctx.response.body = 'success';
     } catch(err) {
       ctx.body = '出错';

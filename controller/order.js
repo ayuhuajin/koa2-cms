@@ -18,9 +18,9 @@ module.exports={
       var queryName= new RegExp(name, 'i');//模糊查询参数
       var queryOrderId= new RegExp(orderId, 'i');//模糊查询参数
       var queryStatus= new RegExp(status, 'i');//模糊查询参数
-      var queryDate= new RegExp(date, 'i');//模糊查询参数
-      total = await order.find({$or:[{'shopName': queryName}],'orderId':queryOrderId,'status':queryStatus,'date':queryDate});
-      result = await order.find({$or:[{'shopName': queryName}],'orderId':queryOrderId,'status':queryStatus,'date':queryDate}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
+     // var queryDate= new RegExp(date, 'i');//模糊查询参数
+      total = await order.find({$or:[{'shopName': queryName}],'orderId':queryOrderId,'status':queryStatus,});
+      result = await order.find({$or:[{'shopName': queryName}],'orderId':queryOrderId,'status':queryStatus}).sort({'time':-1}).skip((parseInt(currentPage)-1)*parseInt(limit)).limit(parseInt(limit));
     }
     ctx.response.body = {
       total:total.length,
