@@ -81,7 +81,7 @@ module.exports = {
   },
   // 订单付款成功后，，阿里请求本接口，
   orderSuccess:async(ctx)=>{
-    let {subject,out_trade_no,trade_status,trade_no, buyer_id,buyer_logon_id, buyer_pay_amount} = ctx.request.body;
+    let {subject,out_trade_no,trade_status,trade_no, buyer_id,buyer_logon_id, buyer_pay_amount,gmt_create,gmt_payment} = ctx.request.body;
     let time = Date.now();
     try{
       let result = await order.find({'orderId':out_trade_no});
@@ -93,7 +93,7 @@ module.exports = {
       } else {
         status = '未付款';
       }
-      var update = {$set : {shopName:subject,payMoney:buyer_pay_amount,orderId:out_trade_no,trade_status:trade_status,status:status,trade_no:trade_no,buyer_id:buyer_id,buyer_logon_id:buyer_logon_id,time:time }};
+      var update = {$set : {shopName:subject,payMoney:buyer_pay_amount,orderId:out_trade_no,trade_status:trade_status,status:status,trade_no:trade_no,buyer_id:buyer_id,buyer_logon_id:buyer_logon_id,time:time,gmt_create:gmt_create,gmt_payment:gmt_payment }};
       if(trade_status =='TRADE_SUCCESS') {
         await order.update(conditions, update);
       }
