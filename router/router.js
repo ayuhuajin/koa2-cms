@@ -114,6 +114,7 @@ module.exports = (app) =>{
   router.get('/order/orderList',order.orderList);
   router.post('/order/addOrder',order.addOrder);
   router.post('/order/delOrder',order.delOrder);
+  router.get('/order/queryOrderById',order.queryOrderById);
 
 
 

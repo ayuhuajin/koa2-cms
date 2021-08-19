@@ -49,4 +49,12 @@ module.exports={
       ctx.response.body = '删除失败';
     }
   },
+
+  // 查询订单
+  queryOrderById:async(ctx)=>{
+    let orderId = ctx.query.orderId;
+    let conditions = { 'orderId': orderId };
+    let result = await order.find(conditions);
+    ctx.response.body = result;
+  },
 };
