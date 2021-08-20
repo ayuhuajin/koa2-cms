@@ -166,6 +166,7 @@ module.exports = {
         }
       });
       ctx.body=result;
+      // await order.deleteOne({'orderId':out_trade_no});
     } catch(err) {
       console.log(err,'失败');
     }
