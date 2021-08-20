@@ -1,4 +1,6 @@
 const shop = require('../mongo/shop');
+const order = require('../mongo/order');
+
 const md5 = require('md5');
 
 
@@ -101,10 +103,12 @@ module.exports={
   getshopView:async(ctx)=>{
     let id = ctx.query.id;
     let secret = ctx.query.secret;
+    let orderId = ctx.query.orderId;
     let conditions = { '_id': id };
+    let conditions1 = { 'orderId': orderId };
+    let result1 = await order.find(conditions1);
     let result = await shop.find(conditions,{shopSecret:0});
-    console.log(result,999999,secret);
-    if(secret==result[0].secret) {
+    if(result[0]&&secret==result[0].secret||(result1[0]&&result1[0].status=='已付款')) {
       ctx.response.body = result;
     } else {
       ctx.response.body = '密钥出错';
