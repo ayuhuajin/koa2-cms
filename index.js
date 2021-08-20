@@ -36,7 +36,7 @@ app.use((ctx, next) => {
 app.use(koajwt({
   secret: 'my_token'
 }).unless({
-  path: ['/login','/getBlogList','/getCategoryList','/getBlogView','/tools/getToolList','/type/categoryList','/orderSuccess','/ali/createOrder','/ali/queryOrder','/shop/shopList','/shop/getshopView'] // 不用进行授权的接口,
+  path: ['/login','/getBlogList','/getCategoryList','/getBlogView','/tools/getToolList','/type/categoryList','/orderSuccess','/ali/createOrder','/ali/revokeOrder','/ali/refundOrder','/order/queryOrderById','/ali/queryOrder','/shop/shopList','/shop/getshopView'] // 不用进行授权的接口,
 }));
 
 router(app);
