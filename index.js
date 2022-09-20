@@ -36,7 +36,7 @@ app.use((ctx, next) => {
 app.use(koajwt({
   secret: 'my_token'
 }).unless({
-  path: ['/login','/getBlogList','/getCategoryList','/getBlogView','/tools/getToolList','/type/categoryList','/orderSuccess','/ali/createOrder','/ali/revokeOrder','/ali/refundOrder','/order/queryOrderById','/ali/queryOrder','/shop/shopList','/shop/getshopView'] // 不用进行授权的接口,
+  path: ['/login','/getBlogList','/getCategoryList','/getBlogView','/tools/getToolList','/type/categoryList','/orderSuccess','/ali/createOrder','/ali/revokeOrder','/ali/refundOrder','/order/queryOrderById','/ali/queryOrder','/shop/shopList','/shop/getshopView','/ali/sendEmail','/company/getCompanyList','/company/updateCompany','/company/CompanyView'] // 不用进行授权的接口,
 }));
 
 router(app);
@@ -53,32 +53,32 @@ app.listen(12306);
 //       console.log(data)
 //   })
 // })
-var ws = require("nodejs-websocket");
+var ws = require('nodejs-websocket');
 var server1 = ws.createServer(function(conn){
-  conn.on("connect", function (str) {
-    console.log("收到:"+str)
-    conn.sendText("有人加入了")
-  })
-  conn.on("text", function (str) {
-      console.log("收到的信息为:"+str)
-      conn.sendText(Math.random().toString())
-      borcat()
+  conn.on('connect', function (str) {
+    console.log('收到:'+str);
+    conn.sendText('有人加入了');
+  });
+  conn.on('text', function (str) {
+      console.log('收到的信息为:'+str);
+      conn.sendText(Math.random().toString());
+      borcat();
       // setInterval(()=>{
       //   console.log(8888);
       //   conn.sendText(99)
       // },1000)
-  })
-  conn.on("close", function (code, reason) {
-      console.log("关闭连接")
   });
-  conn.on("error", function (code, reason) {
-      console.log("异常关闭")
+  conn.on('close', function (code, reason) {
+      console.log('关闭连接');
   });
-}).listen(11223)
+  conn.on('error', function (code, reason) {
+      console.log('异常关闭');
+  });
+}).listen(11223);
 function borcat(){
   server1.connections.forEach(function (conn) {
-    conn.sendText('2222')
-  })
+    conn.sendText('2222');
+  });
 }
 
 console.log('[demo] start-quick is starting at port 12306');

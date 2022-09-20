@@ -12,6 +12,8 @@ const user = require('../controller/user');
 const permission = require('../controller/permission');
 const demo = require('../controller/demo');
 const ali = require('../controller/ali');
+const email = require('../controller/email');
+const company = require('../controller/company');
 // const aliPay = require('../controller/aliPay');
 const fs = require('fs');
 const path = require('path');
@@ -194,6 +196,20 @@ module.exports = (app) =>{
    router.get('/shop/getshopView',shop.getshopView);
 
    // ****************************  联系列表,增,删,改,查  **********************************//
+     // ****************************  SEND EMAIL START  **********************************//
+
+  router.post('/ali/sendEmail',email.sendEmail);
+  router.post('/company/getCompanyList',company.companyList);
+  router.post('/company/addCompany',company.addCompany);
+  router.post('/company/delCompany',company.delCompany);
+  router.get('/company/companyView',company.companyView);
+  router.post('/company/updateCompany',company.updateCompany);
+  router.post('/company/updateBatch',company.vertifyEmailBatch);
+  router.post('/company/updateSwitch',company.updateSwitch);
+  router.post('/company/vertifyEmailByDetective',company.vertifyEmailByDetective);
+
+  // ****************************  SEND EMAIL END  **********************************//
+
    router.get('/contact/contactList',contact.contactList);
    router.post('/contact/addContact',contact.addContact);
    router.post('/contact/delContact',contact.delContact);
