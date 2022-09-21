@@ -250,18 +250,23 @@ module.exports={
     // ctx.response.body='编辑出错';
     let item = ctx.request.body;
     // emailList.forEach((item,index) => {
-      Axios.get(
-        `https://api.mail-verifier.xyz/?cmd=verify&key=8680244EB6827DFE5A11F7A1A0BCF9DA&email=${item.email}`
-      ).then(async result => {
-        if(result.data.code===1) {
-          await company.updateOne({'_id' : item.id}, {$set : { 'emailValid' : true,'remark':result.data.msg,'emailCheck':true}});
-          ctx.response.body='验证成功';
-
-        } else {
-          await company.updateOne({'_id' : item.id}, {$set : { 'emailValid' : false,'remark':result.data.msg,'emailCheck':true}});
-          ctx.response.body='验证失败';
-        }
+      let a = new Promise((resolve,reject)=>{
+        Axios.get(
+          `https://api.mail-verifier.xyz/?cmd=verify&key=8680244EB6827DFE5A11F7A1A0BCF9DA&email=${item.email}`
+        ).then(async result => {
+          if(result.data.code===1) {
+            await company.updateOne({'_id' : item._id}, {$set : { 'emailValid' : true,'remark':result.data.msg,'emailCheck':true}});
+            resolve('验证成功');
+  
+          } else {
+            await company.updateOne({'_id' : item._id}, {$set : { 'emailValid' : false,'remark':result.data.msg,'emailCheck':true}});
+            reject('验证失败');
+          }
+        });
       });
+      let kk = await a;
+
+      ctx.response.body=kk;
     // });
   }
 };
