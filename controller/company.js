@@ -245,21 +245,24 @@ module.exports={
   },
   // 邮箱侦探验证邮箱
   vertifyEmailByDetective:async(ctx)=>{
-    let emailList = ctx.request.body;
-    console.log(emailList,1234);
-    ctx.response.body='编辑出错';
-    emailList.forEach((item,index) => {
+    // let emailList = ctx.request.body;
+    // console.log(emailList,1234);
+    // ctx.response.body='编辑出错';
+    let item = ctx.request.body;
+    // emailList.forEach((item,index) => {
       Axios.get(
         `https://api.mail-verifier.xyz/?cmd=verify&key=8680244EB6827DFE5A11F7A1A0BCF9DA&email=${item.email}`
       ).then(async result => {
-        console.log(result.data,888889999);
         if(result.data.code===1) {
           await company.updateOne({'_id' : item.id}, {$set : { 'emailValid' : true,'remark':result.data.msg,'emailCheck':true}});
+          ctx.response.body='验证成功';
+
         } else {
           await company.updateOne({'_id' : item.id}, {$set : { 'emailValid' : false,'remark':result.data.msg,'emailCheck':true}});
+          ctx.response.body='验证失败';
         }
       });
-    });
+    // });
   }
 };
 
