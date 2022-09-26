@@ -257,16 +257,23 @@ module.exports={
           if(result.data.code===1) {
             await company.updateOne({'_id' : item._id}, {$set : { 'emailValid' : true,'remark':result.data.msg,'emailCheck':true}});
             resolve('验证成功');
-  
           } else {
             await company.updateOne({'_id' : item._id}, {$set : { 'emailValid' : false,'remark':result.data.msg,'emailCheck':true}});
             reject('验证失败');
           }
+        }).catch(e=>{
+          console.log(e);
+          reject('验证失败');
+          ctx.response.body = 'ctx.response.body';
         });
       });
-      let kk = await a;
+      try{
+        let kk = await a;
+        ctx.response.body=kk;
+      } catch(e){
+        ctx.response.body=e;
+      }
 
-      ctx.response.body=kk;
     // });
   }
 };
