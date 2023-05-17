@@ -19,7 +19,10 @@ app.use(cors());
 // 具体参数我们在后面进行解释
 
 // parse request body:
-app.use(bodyParser());  //bodypaser要在router之前加载才能生效。
+app.use(bodyParser({
+  formLimit:'10mb',
+  jsonLimit:'10mb'
+}));  //bodypaser要在router之前加载才能生效。
 
 // 错误处理 返回401 中间件对token进行验证
 app.use((ctx, next) => {
